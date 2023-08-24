@@ -6,7 +6,7 @@ const { Unauthorize } = require('../errors');
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
   const user = await User.create({ name, email, password });
-  const token = user.createToken();
+  const token = user.createToken(user._id);
   res
     .status(StatusCodes.OK)
     .json({ user: { name: user.name, email: user.email, token } });
@@ -18,7 +18,7 @@ const login = async (req, res) => {
   if (!user) throw new Unauthorize('User does not exist');
   const passwordMatch = await user.comparePassword(password);
   if (!passwordMatch) throw new Unauthorize('Invalid password');
-  const token = user.createToken();
+  const token = user.createToken(user._id);
   res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
 };
 
