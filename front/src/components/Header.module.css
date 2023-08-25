@@ -1,0 +1,53 @@
+.header {
+  min-width: 22.7rem;
+  margin-left: 15rem;
+  padding-right: 2rem;
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 94vh;
+}
+.header nav img {
+  width: 2rem;
+}
+
+.header ul {
+  margin: 1.4rem auto;
+  padding: 0;
+}
+
+.header li {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 1.1rem 0;
+}
+
+.icon {
+  padding-right: 2rem;
+}
+
+.header button {
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.footer img {
+  width: 3.5rem;
+  border-radius: 50%;
+}
+
+.footer-text p {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.footer-text p:last-child {
+  opacity: 0.5;
+}
