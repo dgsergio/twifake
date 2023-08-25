@@ -4,12 +4,11 @@ const User = require('../models/User');
 const { Unauthorize } = require('../errors');
 
 const signup = async (req, res) => {
-  const { name, email, password } = req.body;
-  const user = await User.create({ name, email, password });
+  const user = await User.create(req.body);
   const token = user.createToken(user._id);
   res
     .status(StatusCodes.OK)
-    .json({ user: { name: user.name, email: user.email, token } });
+    .json({ user: { name: user.name, email: user.email }, token });
 };
 
 const login = async (req, res) => {

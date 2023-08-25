@@ -10,7 +10,7 @@ const postSchema = new Schema(
     },
     imgUrl: {
       type: String,
-      match: /^(ftp|http|https):\/\/[^ "]+$/,
+      match: [/^(ftp|http|https):\/\/[^ "]+$/, 'Please provide a valid URL'],
     },
     createdBy: {
       type: Types.ObjectId,

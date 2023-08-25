@@ -10,10 +10,18 @@ const userSchema = new Schema({
     maxlength: 25,
     unique: true,
   },
+  perfilUrl: {
+    type: String,
+    match: [/^(ftp|http|https):\/\/[^ "]+$/, 'Please provide a valid URL'],
+    default: 'https://i.ibb.co/9thsY3m/no-avatar.jpg',
+  },
   email: {
     type: String,
     required: [true, 'Please provide an email'],
-    match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      'Please provide a valid email',
+    ],
     unique: true,
   },
   password: {
@@ -31,7 +39,7 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.createToken = function (id) {
   const token = jwt.sign({ name: this.name, id }, process.env.JWT_SECRET, {
-    expiresIn: '1d',
+    expiresIn: process.env.JWT_LIFETIME,
   });
   return token;
 };

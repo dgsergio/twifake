@@ -3,13 +3,13 @@ require('express-async-errors');
 const Post = require('../models/Post');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const { Unauthorize } = require('../errors');
+const { Unauthorize, NotFoundError } = require('../errors');
 
 const createPost = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const { id: createdBy } = jwt.verify(token, process.env.JWT_SECRET);
   const post = await Post.create({ ...req.body, createdBy });
-  res.status(StatusCodes.OK).json({ post: post.post });
+  res.status(StatusCodes.OK).json({ id: post._id });
 };
 
 const getPosts = async (req, res) => {
@@ -30,7 +30,7 @@ const deletePost = async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const { id: createdBy } = jwt.verify(token, process.env.JWT_SECRET);
   const post = await Post.findOneAndDelete({ _id: id, createdBy });
-  if (!post) throw new Unauthorize('Access denied');
+  if (!post) throw new NotFoundError('Post does not exist');
   res.status(StatusCodes.OK).json({ post });
 };
 

@@ -7,6 +7,18 @@ const routeNotFound = require('./middleware/route-not-found');
 const connectDB = require('./db/connect-db');
 const errorHandler = require('./middleware/error-handler');
 require('dotenv').config();
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const cors = require('cors');
+
+app.set('trust proxy', 1);
+app.use(helmet());
+app.use(cors());
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+app.use(limiter);
 
 app.get('/', (req, res) => {
   res.send('<h1>TwiFake API</h1>');
