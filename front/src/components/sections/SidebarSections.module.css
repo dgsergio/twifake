@@ -1,0 +1,28 @@
+.section {
+  background-color: #1e2732;
+  padding: 0.8rem 1.5rem;
+  margin: 1.7rem 0;
+  border-radius: 1.5rem;
+}
+
+.section h3 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.section p {
+  margin: 1rem 0;
+  font-size: 1.4rem;
+}
+
+.section button {
+  font-size: 1.3rem;
+  padding: 0.8rem 1.5rem;
+}
+
+.follow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin: 2rem 0;
+}

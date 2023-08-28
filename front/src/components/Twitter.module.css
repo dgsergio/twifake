@@ -1,0 +1,28 @@
+.twitter {
+  display: flex;
+  gap: 1rem;
+}
+
+.twitter p {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.twitter p:last-child {
+  opacity: 0.5;
+}
+
+.twitter img {
+  width: 3.5rem;
+  border-radius: 50%;
+}
+
+.container button {
+  color: #0f1419;
+  background-color: #eff3f4;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}

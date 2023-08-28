@@ -1,0 +1,16 @@
+.header {
+  padding: 1.1rem;
+  border: 0.1rem solid rgba(255, 255, 255, 0.16);
+}
+
+.header h2 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.nav {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.5rem;
+}

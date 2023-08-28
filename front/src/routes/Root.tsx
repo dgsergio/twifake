@@ -1,5 +1,6 @@
 import Header from '../components/Header';
 import Main from '../components/Main';
+import Sidebar from '../components/Sidebar';
 import classes from './Root.module.css';
 
 const Root = () => {
@@ -7,6 +8,7 @@ const Root = () => {
     <div className={classes.root}>
       <Header />
       <Main />
+      <Sidebar />
     </div>
   );
 };

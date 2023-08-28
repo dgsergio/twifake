@@ -1,0 +1,30 @@
+.post {
+  border: 0.1rem solid rgba(255, 255, 255, 0.16);
+  padding: 1rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+  min-width: 57rem;
+}
+
+.post img {
+  width: 3.5rem;
+  border-radius: 50%;
+}
+
+.content {
+  font-size: 1.5rem;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title p {
+  margin: 0;
+}
+
+.title span,
+.title svg {
+  opacity: 0.5;
+}

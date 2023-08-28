@@ -21,4 +21,18 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
 };
 
-module.exports = { signup, login };
+const getAllUsers = async (req, res) => {
+  const users = await User.find({});
+  if (!users) throw new Unauthorize('There is not users');
+
+  let userInfo = [];
+  for (const i of users) {
+    userInfo.push({ name: i.name, email: i.email, perfilUrl: i.perfilUrl });
+  }
+
+  console.log(userInfo);
+
+  res.status(StatusCodes.OK).json(userInfo);
+};
+
+module.exports = { signup, login, getAllUsers };

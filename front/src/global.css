@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
+:root {
+  --active-color: #1d9bf0;
+  --white-color: #f7f9f9;
+}
 html {
   box-sizing: border-box;
   font-size: 62.5%;
@@ -14,17 +18,18 @@ html {
 body {
   font-size: 1.8rem;
   background-color: #15202b;
-  color: #f7f9f9;
+  color: var(--white-color);
   font-family: 'Roboto', sans-serif;
+  margin: 0;
 }
 
 button {
-  background-color: #1d9bf0;
+  background-color: var(--active-color);
   border: none;
   border-radius: 5rem;
   padding: 1rem 2rem;
   cursor: pointer;
-  color: #f7f9f9;
+  color: var(--white-color);
   font-weight: 600;
   font-size: 1.5rem;
 }
