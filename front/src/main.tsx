@@ -5,11 +5,16 @@ import Root from './routes/Root';
 import './global.css';
 import { store } from './store';
 import { Provider } from 'react-redux';
+import Signin from './components/Signin';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+  },
+  {
+    path: '/signin',
+    element: <Signin />,
   },
 ]);
 

@@ -1,0 +1,19 @@
+.user {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.user img {
+  width: 3.5rem;
+  border-radius: 50%;
+}
+
+.user-text p {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.user-text p:last-child {
+  opacity: 0.5;
+}

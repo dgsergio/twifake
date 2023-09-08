@@ -1,0 +1,90 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.container {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  padding: 3% 0;
+}
+
+.image {
+  margin: 0 auto;
+}
+
+.options {
+  margin-left: 4rem;
+}
+
+.container img {
+  width: 21rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.2rem;
+}
+
+.footer li {
+  list-style: none;
+  color: #748694;
+}
+
+.main h2 {
+  font-size: 5.7rem;
+}
+
+.main h3 {
+  font-size: 3rem;
+}
+
+.terms {
+  font-size: 1rem;
+  color: #748694;
+}
+
+.main button {
+  font-size: 1.18rem;
+  padding: 0.9rem 0;
+}
+
+.main button,
+.terms,
+.or {
+  width: 24rem;
+}
+
+.btn-primary {
+  background-color: transparent;
+  border: 0.1rem solid #536471;
+  color: var(--active-color);
+}
+
+.btn-primary:hover {
+  background-color: #162d3f;
+}
+
+.btn-secondary:hover {
+  background-color: #1a8cd8;
+}
+
+.or {
+  display: flex;
+  align-items: center;
+}
+
+.line {
+  width: 100%;
+  background-color: #536471;
+  height: 0.1rem;
+}
+
+.or p {
+  font-size: 1.2rem;
+  padding: 0 0.7rem;
+}

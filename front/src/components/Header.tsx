@@ -6,6 +6,7 @@ import {
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import UserMenu from './UserMenu';
 
 const Header = () => {
   return (
@@ -34,13 +35,7 @@ const Header = () => {
         </ul>
         <button>Post</button>
       </nav>
-      <div className={classes.footer}>
-        <img src="https://i.ibb.co/9thsY3m/no-avatar.jpg" alt="user picture" />
-        <div className={classes['footer-text']}>
-          <p>Sergio</p>
-          <p>sergio@gmail.com</p>
-        </div>
-      </div>
+      <UserMenu />
     </header>
   );
 };
