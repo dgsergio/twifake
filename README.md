@@ -11,3 +11,4 @@ Replica de la red social twitter utiliznado stack MERN
   - [x] Configurar el token automatico en postman
   - [x] instalar dependencias de seguridad
   - [x] Revisar errores especificos en custom error
+  - [ ] Use the userDetail component for Who to folow

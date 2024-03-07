@@ -1,19 +1,34 @@
 .user {
+  position: relative;
+}
+
+button.user-btn {
   display: flex;
-  gap: 1rem;
-  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  font-weight: normal;
+  text-align: left;
+  border-radius: 5rem;
+  padding: 1rem;
+  color: var(--white-color);
+  transition: background 200ms linear;
 }
 
-.user img {
-  width: 3.5rem;
-  border-radius: 50%;
+button.user-btn:hover {
+  background-color: #f7f9f91a;
 }
 
-.user-text p {
-  margin: 0;
-  font-size: 1.4rem;
+button.user-btn:active {
+  background-color: #f7f9f93b;
 }
 
-.user-text p:last-child {
-  opacity: 0.5;
+.user-option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.user-option svg {
+  width: 90%;
 }

@@ -1,13 +1,19 @@
 import classes from './UserMenu.module.css';
+import UserDetail from './UserDetail';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import UserCard from './UserCard';
 
 function UserMenu() {
   return (
     <div className={classes.user}>
-      <img src="https://i.ibb.co/9thsY3m/no-avatar.jpg" alt="user picture" />
-      <div className={classes['user-text']}>
-        <p>Sergio</p>
-        <p>sergio@gmail.com</p>
-      </div>
+      <UserCard name="Sergio" userName="sergio@gmail.com" />
+      <button className={classes['user-btn']}>
+        <UserDetail name="Sergio" userName="sergio@gmail.com" />
+        <div className={classes['user-option']}>
+          <FontAwesomeIcon icon={faEllipsis} />
+        </div>
+      </button>
     </div>
   );
 }
