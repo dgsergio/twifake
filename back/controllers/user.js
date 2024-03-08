@@ -27,7 +27,12 @@ const getAllUsers = async (req, res) => {
 
   let userInfo = [];
   for (const i of users) {
-    userInfo.push({ name: i.name, email: i.email, perfilUrl: i.perfilUrl });
+    userInfo.push({
+      name: i.name,
+      email: i.email,
+      perfilUrl: i.perfilUrl,
+      _id: i._id,
+    });
   }
 
   console.log(userInfo);
@@ -35,4 +40,16 @@ const getAllUsers = async (req, res) => {
   res.status(StatusCodes.OK).json(userInfo);
 };
 
-module.exports = { signup, login, getAllUsers };
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findOne({ _id: id });
+  const userInfo = {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    perfilUrl: user.perfilUrl,
+  };
+  res.status(StatusCodes.OK).json(userInfo);
+};
+
+module.exports = { signup, login, getAllUsers, getUserById };

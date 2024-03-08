@@ -8,8 +8,9 @@ function Signin() {
   const year = new Date().getFullYear();
   const footerTxt = [
     'Twifake',
-    'Pixel40',
-    'estudiopixel40',
+    'Pixel40.com.ar',
+    '@estudiopixel40',
+    'Sergo',
     `© ${year} Z Corp.`,
   ];
 
@@ -44,7 +45,7 @@ function Signin() {
         </div>
         <ul className={classes.footer}>
           {footerTxt.map((txt) => (
-            <li>{txt}</li>
+            <li key={txt}>{txt}</li>
           ))}
         </ul>
       </main>

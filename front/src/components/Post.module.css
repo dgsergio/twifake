@@ -11,8 +11,17 @@
   border-radius: 50%;
 }
 
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .content {
   font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .title {
@@ -25,6 +34,6 @@
 }
 
 .title span,
-.title svg {
+.container svg {
   opacity: 0.5;
 }

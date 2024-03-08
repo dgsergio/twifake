@@ -12,3 +12,12 @@ Replica de la red social twitter utiliznado stack MERN
   - [x] instalar dependencias de seguridad
   - [x] Revisar errores especificos en custom error
   - [ ] Use the userDetail component for Who to folow
+  - [ ] Validate sign up
+  - [ ] create user in signup
+  - [ ] scroll to top react router
+  - [x] buscar usuario por id back
+  - [ ] fix UI if no data is loaded
+  - [x] Next step should be load all twitt. get user by id to add detail to each post
+  - [ ] Back documentation
+  - [ ] Rules if not login
+  - [ ] Load current user from the store on bottom left user area
