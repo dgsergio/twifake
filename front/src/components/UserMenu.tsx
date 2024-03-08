@@ -3,28 +3,23 @@ import UserDetail from './UserDetail';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserCard from './UserCard';
-import { useEffect, useState } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import { useState } from 'react';
+import { User } from '../store/usersSlice';
 
-function UserMenu() {
+function UserMenu({ user }: { user: User }) {
   const [showUserCard, setShowUserCard] = useState<boolean>(false);
+
   const showUserCardHandler = (): void => {
     setShowUserCard((pV) => !pV);
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decoded = jwtDecode(token);
-      console.log(decoded);
-    }
-  }, []);
-
   return (
     <div className={classes.user}>
-      {showUserCard && <UserCard name="Sergio" userName="sergio@gmail.com" />}
+      {showUserCard && (
+        <UserCard user={user} onToggleUserCard={showUserCardHandler} />
+      )}
       <button className={classes['user-btn']} onClick={showUserCardHandler}>
-        <UserDetail name="Sergio" userName="sergio@gmail.com" />
+        <UserDetail user={user} />
         <div className={classes['user-option']}>
           <FontAwesomeIcon icon={faEllipsis} />
         </div>

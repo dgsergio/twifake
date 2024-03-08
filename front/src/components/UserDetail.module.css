@@ -12,8 +12,10 @@
 .user-text p {
   margin: 0;
   font-size: 1.4rem;
+  text-transform: capitalize;
 }
 
 .user-text p:last-child {
   opacity: 0.5;
+  text-transform: lowercase;
 }

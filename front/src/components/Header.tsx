@@ -7,8 +7,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import UserMenu from './UserMenu';
+import { User } from '../store/usersSlice';
 
-const Header = () => {
+const Header = ({ user }: { user: User }) => {
   return (
     <header className={classes.header}>
       <nav>
@@ -35,7 +36,7 @@ const Header = () => {
         </ul>
         <button>Post</button>
       </nav>
-      <UserMenu />
+      <UserMenu user={user} />
     </header>
   );
 };

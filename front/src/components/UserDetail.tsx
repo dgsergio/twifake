@@ -1,18 +1,14 @@
+import { User } from '../store/usersSlice';
 import classes from './UserDetail.module.css';
 
-export type UserDetailProps = {
-  name: string;
-  userName: string;
-};
-
-const UserDetail = (props: UserDetailProps) => {
+const UserDetail = ({ user }: { user: User }) => {
   return (
     <>
       <div className={classes['user-content']}>
-        <img src="https://i.ibb.co/9thsY3m/no-avatar.jpg" alt="user picture" />
+        <img src={user.perfilUrl} alt="user picture" />
         <div className={classes['user-text']}>
-          <p>{props.name}</p>
-          <p>{props.userName}</p>
+          <p>{user.name}</p>
+          <p>{user.email}</p>
         </div>
       </div>
     </>

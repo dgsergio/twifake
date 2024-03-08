@@ -1,18 +1,32 @@
+import { useNavigate } from 'react-router-dom';
+import { User } from '../store/usersSlice';
 import classes from './UserCard.module.css';
 import UserDetail from './UserDetail';
-import { UserDetailProps } from './UserDetail';
 
-function UserCard(props: UserDetailProps) {
+function UserCard({
+  user,
+  onToggleUserCard,
+}: {
+  user: User;
+  onToggleUserCard: () => void;
+}) {
+  const navigator = useNavigate();
+
+  const logoutHandler = () => {
+    localStorage.clear();
+    navigator('/signin');
+  };
+
   return (
     <>
-      <div className={`${classes.backdrop} hide`} />
+      <div className={`${classes.backdrop}`} onClick={onToggleUserCard} />
       <div className={classes['user-card']}>
         <div className={classes['user-card-header']}>
-          <UserDetail name={props.name} userName={props.userName} />
+          <UserDetail user={user} />
         </div>
         <div className={classes['user-card-body']}>
           <button>Manage your account</button>
-          <button>Log out</button>
+          <button onClick={logoutHandler}>Log out</button>
         </div>
       </div>
     </>

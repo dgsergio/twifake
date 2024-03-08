@@ -31,9 +31,11 @@
 
 .title p {
   margin: 0;
+  text-transform: capitalize;
 }
 
 .title span,
 .container svg {
   opacity: 0.5;
+  text-transform: lowercase;
 }
