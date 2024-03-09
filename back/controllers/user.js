@@ -44,7 +44,7 @@ const getUserById = async (req, res) => {
   const { id } = req.params;
   const user = await User.findOne({ _id: id });
   const userInfo = {
-    id: user._id,
+    _id: user._id,
     name: user.name,
     email: user.email,
     perfilUrl: user.perfilUrl,
