@@ -9,7 +9,12 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import UserMenu from './UserMenu';
 import { User } from '../store/usersSlice';
 
-const Header = ({ user }: { user: User }) => {
+type Props = {
+  user: User;
+  onShowCreatePost: (show: boolean) => void;
+};
+
+const Header = ({ user, onShowCreatePost }: Props) => {
   return (
     <header className={classes.header}>
       <nav>
@@ -34,7 +39,7 @@ const Header = ({ user }: { user: User }) => {
             <span>Profile</span>
           </li>
         </ul>
-        <button>Post</button>
+        <button onClick={() => onShowCreatePost(true)}>Post</button>
       </nav>
       <UserMenu user={user} />
     </header>

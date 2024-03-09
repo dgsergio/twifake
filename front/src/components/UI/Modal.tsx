@@ -7,12 +7,14 @@ type Props = {
   children: React.ReactNode;
   showIcon: boolean;
   onShowModal: (show: boolean) => void;
+  className?: string;
 };
 
-function Modal({ children, showIcon = false, onShowModal }: Props) {
+function Modal({ children, showIcon = false, onShowModal, className }: Props) {
+  const allClasses = `${className} ${classes.content}`;
   return (
     <div className={classes.modal}>
-      <div className={classes.content}>
+      <div className={allClasses}>
         <div className={classes.header}>
           <button onClick={() => onShowModal(false)}>
             <FontAwesomeIcon icon={faX} />

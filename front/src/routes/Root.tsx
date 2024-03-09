@@ -10,9 +10,11 @@ import { RootState } from '../store';
 import { User } from '../store/usersSlice';
 import noAvatar from '../assets/no-avatar.jpg';
 import Loading from '../components/Loading';
+import PostModal from '../components/PostModal';
 
 const Root = () => {
   const navigator = useNavigate();
+  const [showCreatePost, setShowCreatePost] = useState<boolean>(false);
   const [loadingProfile, setLoadingProfile] = useState<boolean>(false);
 
   const initialState: User = {
@@ -40,8 +42,14 @@ const Root = () => {
   if (loadingProfile) return <Loading />;
   return (
     <>
+      {showCreatePost && (
+        <PostModal
+          onShowCreatePost={setShowCreatePost}
+          profileUrl={loggedUser.perfilUrl}
+        />
+      )}
       <div className={classes.root}>
-        <Header user={loggedUser} />
+        <Header user={loggedUser} onShowCreatePost={setShowCreatePost} />
         <Main />
         <Sidebar />
       </div>

@@ -11,13 +11,14 @@ Replica de la red social twitter utiliznado stack MERN
   - [x] Configurar el token automatico en postman
   - [x] instalar dependencias de seguridad
   - [x] Revisar errores especificos en custom error
+  - [x] buscar usuario por id back
+  - [x] Next step should be load all twitt. get user by id to add detail to each post
+  - [x] Load current user from the store on bottom left user area
+  - [x] Rules if not login
+  - [x] fix UI if no data is loaded, twiter show a loading full screen
   - [ ] Use the userDetail component for Who to folow
-  - [ ] Validate sign up
+  - [ ] Validate sign in (see rules on backend)
   - [ ] create user in signup
   - [ ] scroll to top react router
-  - [x] buscar usuario por id back
-  - [ ] fix UI if no data is loaded
-  - [x] Next step should be load all twitt. get user by id to add detail to each post
   - [ ] Back documentation
-  - [ ] Rules if not login
-  - [ ] Load current user from the store on bottom left user area
+  - [ ] Only on Create Post, background click should close the modal

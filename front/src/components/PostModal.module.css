@@ -1,0 +1,28 @@
+.modal {
+  max-width: 50rem;
+}
+
+.body {
+  margin: 5rem 0.7rem;
+}
+
+.body img {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+}
+
+.form {
+  display: flex;
+  gap: 1rem;
+}
+
+.form textarea {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  resize: none;
+  color: white;
+  font-size: 1.7rem;
+  outline: none;
+}
