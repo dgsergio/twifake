@@ -1,8 +1,8 @@
 import classes from './SigninModal.module.css';
-import logo from '../assets/logo-white.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faX } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { validate } from '../utils/validate';
+import { useEffect, useState } from 'react';
+import Modal from './UI/Modal';
 
 function SigninModal({
   onSetShowSignin,
@@ -10,6 +10,14 @@ function SigninModal({
   onSetShowSignin: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setErrorMsg(null);
+    }, 5000);
+  }, [errorMsg]);
+
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
@@ -17,9 +25,13 @@ function SigninModal({
       username: { value: string };
       password: { value: string };
     };
-    console.log(username.value, password.value);
-    // please validate in a different file
-    // ****************
+
+    if (validate(username.value, password.value) !== 'ok') {
+      setErrorMsg(validate(username.value, password.value));
+      console.error('No authorization');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3000/api/v1/login', {
         method: 'POST',
@@ -32,6 +44,7 @@ function SigninModal({
         },
       });
       if (!response.ok) throw new Error('Something is not ok');
+
       const data = await response.json();
       localStorage.setItem('token', JSON.stringify(data.token));
       navigate('/');
@@ -44,14 +57,8 @@ function SigninModal({
   };
 
   return (
-    <div className={classes.modal}>
-      <div className={classes.content}>
-        <div className={classes.header}>
-          <button onClick={() => onSetShowSignin(false)}>
-            <FontAwesomeIcon icon={faX} />
-          </button>
-          <img src={logo} alt="logo icon" />
-        </div>
+    <>
+      <Modal onShowModal={onSetShowSignin} showIcon={true}>
         <div className={classes.body}>
           <h2>Sign in to Z</h2>
           <form onSubmit={submitHandler}>
@@ -63,8 +70,13 @@ function SigninModal({
         <div className={classes.footer}>
           Don't have an account? <button>Sign up</button>
         </div>
-      </div>
-    </div>
+      </Modal>
+      {errorMsg && (
+        <div className="message error">
+          <p>We could not acces your account.</p>
+        </div>
+      )}
+    </>
   );
 }
 

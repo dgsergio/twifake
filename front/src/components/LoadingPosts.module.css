@@ -1,0 +1,32 @@
+.container {
+  border: 0.1rem solid rgba(255, 255, 255, 0.16);
+  padding: 1.6rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 57rem;
+  height: 100vh;
+}
+
+.loader-container {
+  width: 100%;
+}
+
+.loader {
+  margin: 0 auto;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 3px solid #1d9bf030;
+  border-bottom-color: var(--active-color);
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -9,10 +9,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { User } from '../store/usersSlice';
 import noAvatar from '../assets/no-avatar.jpg';
+import Loading from '../components/Loading';
 
 const Root = () => {
   const navigator = useNavigate();
-  const [token, setToken] = useState<string | undefined>();
+  const [loadingProfile, setLoadingProfile] = useState<boolean>(false);
 
   const initialState: User = {
     _id: '...',
@@ -24,24 +25,27 @@ const Root = () => {
   const users = useSelector((state: RootState) => state.users.users);
 
   useEffect(() => {
+    setLoadingProfile(true);
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
-      setToken(storedToken);
       type UserToken = { name: string; id: string; iat: number; exp: number };
       const decoded: UserToken = jwtDecode(storedToken);
       const findUser =
         users.find((user) => user._id === decoded.id) || initialState;
       setLoggedUser(findUser);
+      setLoadingProfile(false);
     } else navigator('/signin');
   }, [users]);
 
-  if (!token) return;
+  if (loadingProfile) return <Loading />;
   return (
-    <div className={classes.root}>
-      <Header user={loggedUser} />
-      <Main />
-      <Sidebar />
-    </div>
+    <>
+      <div className={classes.root}>
+        <Header user={loggedUser} />
+        <Main />
+        <Sidebar />
+      </div>
+    </>
   );
 };
 

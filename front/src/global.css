@@ -38,3 +38,18 @@ button {
 .hide {
   display: none;
 }
+
+.message {
+  position: fixed;
+  text-align: center;
+  bottom: 2rem;
+  width: 100%;
+}
+
+.message p {
+  background-color: var(--active-color);
+  padding: 0.6rem;
+  width: 30rem;
+  font-size: 1.4rem;
+  margin: 0 auto;
+}

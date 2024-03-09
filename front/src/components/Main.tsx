@@ -7,6 +7,7 @@ import { callApi as callUsersApi } from '../store/usersSlice';
 import { RootState } from '../store';
 import Post from './Post';
 import { User } from '../store/usersSlice';
+import LoadingPosts from './LoadingPosts';
 
 const Main = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -35,8 +36,8 @@ const Main = () => {
           <span>Your posts</span>
         </div>
       </div>
-      {loadingStatus.loading && <div>Loading...</div>}
-      {loadingStatus.error && <div>{loadingStatus.error}</div>}
+      {loadingStatus.loading && <LoadingPosts msg="Loading" />}
+      {loadingStatus.error && <LoadingPosts msg={loadingStatus.error} />}
       {!loadingStatus.error &&
         !loadingStatus.loading &&
         posts.map((post) => (
