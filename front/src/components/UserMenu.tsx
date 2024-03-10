@@ -2,7 +2,7 @@ import classes from './UserMenu.module.css';
 import UserDetail from './UserDetail';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import UserCard from './UserCard';
+import UserCardModal from './UserCardModal';
 import { useState } from 'react';
 import { User } from '../store/usersSlice';
 
@@ -16,7 +16,7 @@ function UserMenu({ user }: { user: User }) {
   return (
     <div className={classes.user}>
       {showUserCard && (
-        <UserCard user={user} onToggleUserCard={showUserCardHandler} />
+        <UserCardModal user={user} onToggleUserCard={showUserCardHandler} />
       )}
       <button className={classes['user-btn']} onClick={showUserCardHandler}>
         <UserDetail user={user} />

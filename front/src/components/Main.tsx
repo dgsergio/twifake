@@ -9,7 +9,7 @@ import Post from './Post';
 import { User } from '../store/usersSlice';
 import LoadingPosts from './LoadingPosts';
 
-const Main = () => {
+const Main = ({ currentUserID }: { currentUserID: string }) => {
   const dispatch: AppDispatch = useDispatch();
   const posts = useSelector((state: RootState) => state.posts.posts);
   const users = useSelector((state: RootState) => state.users.users);
@@ -44,9 +44,9 @@ const Main = () => {
           .map((post) => (
             <Post
               key={post._id}
-              post={post.post}
-              date={post.createdAt}
+              post={post}
               user={findUser(post.createdBy)}
+              currentUserID={currentUserID}
             />
           ))
           .reverse()}

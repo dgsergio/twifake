@@ -1,0 +1,27 @@
+.user-card-header {
+  border-bottom: 0.1rem solid rgba(255, 255, 255, 0.16);
+  padding: 1.2rem;
+}
+
+.user-card-body {
+  padding: 1rem 0;
+}
+
+.user-card-body button {
+  background-color: transparent;
+  font-size: 1.3rem;
+  text-align: left;
+  padding: 1rem;
+  border-radius: 0;
+}
+
+.user-card-body button:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.user-card {
+  min-width: 26rem;
+  position: absolute;
+  bottom: 7rem;
+  left: -2.2rem;
+}

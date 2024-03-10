@@ -8,8 +8,8 @@
 
 .modal {
   position: fixed;
-  width: 60%;
-  left: calc(50% - (60% / 2));
+  width: 54rem;
+  left: calc(50% - (54rem / 2));
   z-index: 80;
 }
 

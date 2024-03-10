@@ -15,6 +15,8 @@ Replica de la red social twitter utiliznado stack MERN
   - [x] Next step should be load all twitt. get user by id to add detail to each post
   - [x] Load current user from the store on bottom left user area
   - [x] Rules if not login
+  - [x] UserDetail fixed bottom
+  - [x] create post click outside fix
   - [ ] fix UI if no data is loaded, twiter shows a loading full screen
   - [ ] Use the userDetail component for Who to folow
   - [ ] Validate sign in (see rules on backend)
@@ -22,4 +24,4 @@ Replica de la red social twitter utiliznado stack MERN
   - [ ] scroll to top react router?
   - [ ] Back documentation
   - [ ] Responsive
-  - [ ] UserDetail fixed bottom
+  - [ ] current user stored in redux useffect

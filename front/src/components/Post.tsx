@@ -3,16 +3,22 @@ import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import classes from './Post.module.css';
 import { User } from '../store/usersSlice';
 import { timePassed } from '../utils/utils';
+import PostOptionModal from './PostOptionModal';
+import { useState } from 'react';
+import { PostItem } from '../store/postsSlice';
 
-function Post({
-  post,
-  user,
-  date,
-}: {
-  post: string;
+type Props = {
+  post: PostItem;
   user: User;
-  date: string;
-}) {
+  currentUserID: string;
+};
+
+function Post({ post, user, currentUserID }: Props) {
+  const [showPostOption, setShowPostOption] = useState<boolean>(false);
+  const toogleShowPostOption = () => {
+    setShowPostOption((pV) => !pV);
+  };
+
   if (!user) return;
   return (
     <div className={classes.post}>
@@ -25,13 +31,23 @@ function Post({
             <p>
               {user.name}{' '}
               <span>
-                {user.email} - {timePassed(date)}
+                {user.email} - {timePassed(post.createdAt)}
               </span>
             </p>
           </div>
-          <FontAwesomeIcon icon={faEllipsis} />
+          {showPostOption && (
+            <PostOptionModal
+              onToogleShowPostOption={toogleShowPostOption}
+              postID={post._id}
+            />
+          )}
+          {post.createdBy === currentUserID && (
+            <button onClick={toogleShowPostOption}>
+              <FontAwesomeIcon icon={faEllipsis} />
+            </button>
+          )}
         </div>
-        <p>{post}</p>
+        <p>{post.post}</p>
       </div>
     </div>
   );

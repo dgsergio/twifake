@@ -50,7 +50,7 @@ const Root = () => {
       )}
       <div className={classes.root}>
         <Header user={loggedUser} onShowCreatePost={setShowCreatePost} />
-        <Main />
+        <Main currentUserID={loggedUser._id} />
         <Sidebar />
       </div>
     </>

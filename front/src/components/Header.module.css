@@ -1,10 +1,11 @@
 .header {
-  min-width: 22.7rem;
-  padding-right: 2rem;
-  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: fixed;
+  min-width: 22.7rem;
+  padding-right: 2rem;
+  margin-top: 1.5rem;
   height: 94vh;
 }
 .header nav img {
