@@ -3,7 +3,7 @@
 }
 
 .body {
-  margin: 5rem 0.7rem;
+  margin: 5rem 0.7rem 0;
 }
 
 .body img {
@@ -14,7 +14,13 @@
 
 .form {
   display: flex;
+  flex-direction: column;
+}
+
+.form fieldset {
+  display: flex;
   gap: 1rem;
+  border: none;
 }
 
 .form textarea {
@@ -25,4 +31,32 @@
   color: white;
   font-size: 1.7rem;
   outline: none;
+  min-height: 8rem;
+}
+
+.disclaimer {
+  color: var(--active-color);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.disclaimer svg {
+  width: 1.17rem;
+}
+
+.disclaimer span {
+  font-size: 1.3rem;
+}
+
+.footer {
+  border-top: 0.1rem solid rgba(255, 255, 255, 0.16);
+  padding-top: 0.9rem;
+  display: flex;
+  justify-content: right;
+}
+
+.footer button {
+  font-size: 1.4rem;
+  padding: 0.7rem 2.6rem;
 }

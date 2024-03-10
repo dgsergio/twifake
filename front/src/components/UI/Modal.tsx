@@ -13,17 +13,23 @@ type Props = {
 function Modal({ children, showIcon = false, onShowModal, className }: Props) {
   const allClasses = `${className} ${classes.content}`;
   return (
-    <div className={classes.modal}>
-      <div className={allClasses}>
-        <div className={classes.header}>
-          <button onClick={() => onShowModal(false)}>
-            <FontAwesomeIcon icon={faX} />
-          </button>
-          {showIcon && <img src={logo} alt="logo icon" />}
+    <>
+      <div
+        className={classes.backdrop}
+        onClick={() => !showIcon && onShowModal(false)}
+      />
+      <div className={classes.modal}>
+        <div className={allClasses}>
+          <div className={classes.header}>
+            <button onClick={() => onShowModal(false)}>
+              <FontAwesomeIcon icon={faX} />
+            </button>
+            {showIcon && <img src={logo} alt="logo icon" />}
+          </div>
+          {children}
         </div>
-        {children}
       </div>
-    </div>
+    </>
   );
 }
 

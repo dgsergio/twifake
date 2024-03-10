@@ -15,10 +15,11 @@ Replica de la red social twitter utiliznado stack MERN
   - [x] Next step should be load all twitt. get user by id to add detail to each post
   - [x] Load current user from the store on bottom left user area
   - [x] Rules if not login
-  - [x] fix UI if no data is loaded, twiter show a loading full screen
+  - [ ] fix UI if no data is loaded, twiter shows a loading full screen
   - [ ] Use the userDetail component for Who to folow
   - [ ] Validate sign in (see rules on backend)
   - [ ] create user in signup
-  - [ ] scroll to top react router
+  - [ ] scroll to top react router?
   - [ ] Back documentation
-  - [ ] Only on Create Post, background click should close the modal
+  - [ ] Responsive
+  - [ ] UserDetail fixed bottom

@@ -1,9 +1,16 @@
-.modal {
+.backdrop {
   position: fixed;
-  background-color: rgba(67, 85, 106, 0.5);
   width: 100%;
   height: 100%;
-  z-index: 20;
+  z-index: 60;
+  background-color: rgba(67, 85, 106, 0.5);
+}
+
+.modal {
+  position: fixed;
+  width: 60%;
+  left: calc(50% - (60% / 2));
+  z-index: 80;
 }
 
 .content {

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { AppDispatch } from '../store';
 import classes from './Main.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { callApi as callPostsApi } from '../store/postsSlice';
+import { getPosts } from '../store/postsSlice';
 import { callApi as callUsersApi } from '../store/usersSlice';
 import { RootState } from '../store';
 import Post from './Post';
@@ -19,7 +19,7 @@ const Main = () => {
   );
 
   useEffect(() => {
-    dispatch(callPostsApi({ url: 'http://localhost:3000/api/v1/posts' }));
+    dispatch(getPosts('http://localhost:3000/api/v1/posts'));
     dispatch(callUsersApi({ url: 'http://localhost:3000/api/v1/users' }));
   }, []);
 
@@ -40,14 +40,16 @@ const Main = () => {
       {loadingStatus.error && <LoadingPosts msg={loadingStatus.error} />}
       {!loadingStatus.error &&
         !loadingStatus.loading &&
-        posts.map((post) => (
-          <Post
-            key={post._id}
-            post={post.post}
-            date={post.createdAt}
-            user={findUser(post.createdBy)}
-          />
-        ))}
+        posts
+          .map((post) => (
+            <Post
+              key={post._id}
+              post={post.post}
+              date={post.createdAt}
+              user={findUser(post.createdBy)}
+            />
+          ))
+          .reverse()}
     </main>
   );
 };
