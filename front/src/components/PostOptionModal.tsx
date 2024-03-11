@@ -1,8 +1,12 @@
 import ModalSmall from './UI/ModalSmall';
 import classes from './PostOptionModal.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBan } from '@fortawesome/free-solid-svg-icons';
-import { faFileLines } from '@fortawesome/free-regular-svg-icons';
+import { faFileLines, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { AppDispatch } from '../store';
+import { useDispatch } from 'react-redux';
+import { deletePost } from '../store/postsSlice';
+import ConfirmationModal from './ConfirmationModal';
+import { useState } from 'react';
 
 type Props = {
   onToogleShowPostOption: () => void;
@@ -10,8 +14,16 @@ type Props = {
 };
 
 function PostOptionModal({ onToogleShowPostOption, postID }: Props) {
-  const deleteHandler = () => {
-    alert('delete: ' + postID);
+  const dispatch: AppDispatch = useDispatch();
+  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+
+  const showConfirmationHandler = (show: boolean) => {
+    setShowConfirmation(show);
+  };
+
+  const deleteHandler = async () => {
+    dispatch(deletePost('http://localhost:3000/api/v1/posts/' + postID));
+    setShowConfirmation(false);
     onToogleShowPostOption();
   };
 
@@ -22,13 +34,22 @@ function PostOptionModal({ onToogleShowPostOption, postID }: Props) {
 
   return (
     <ModalSmall onClick={onToogleShowPostOption} className={classes.option}>
-      <button onClick={editHandler}>
-        <FontAwesomeIcon icon={faBan} />
-        Editar Post
-      </button>
-      <button onClick={deleteHandler}>
-        <FontAwesomeIcon icon={faFileLines} />
+      {showConfirmation && (
+        <ConfirmationModal
+          onShowConfirmation={showConfirmationHandler}
+          onDelete={deleteHandler}
+        />
+      )}
+      <button
+        className={classes.danger}
+        onClick={() => showConfirmationHandler(true)}
+      >
+        <FontAwesomeIcon icon={faTrashCan} />
         Delete Post
+      </button>
+      <button onClick={editHandler}>
+        <FontAwesomeIcon icon={faFileLines} />
+        Editar Post
       </button>
     </ModalSmall>
   );

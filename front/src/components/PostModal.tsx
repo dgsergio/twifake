@@ -30,7 +30,6 @@ function PostModal({ onShowCreatePost, profileUrl }: Props) {
     if (value.trim().length < 1) return;
     const req: RequestApi = {
       url: 'http://localhost:3000/api/v1/posts',
-      method: 'POST',
       body: JSON.stringify({ post: value }),
     };
     dispatch(postPost(req));

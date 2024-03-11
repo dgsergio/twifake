@@ -1,0 +1,58 @@
+.modal {
+  position: fixed;
+  width: 26rem;
+  left: calc(50% - (26rem / 2));
+}
+
+.modal button {
+  display: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.container h3 {
+  width: 100%;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.container p {
+  margin: 0;
+  font-size: 1.4rem;
+  opacity: 0.7;
+  font-weight: normal;
+  margin-bottom: 1rem;
+}
+
+.container button {
+  display: block;
+  width: 100%;
+  font-size: 1.3rem;
+  background-color: transparent;
+  border: 0.1rem solid #536471;
+}
+
+.container button:hover {
+  background-color: rgba(239, 243, 244, 0.1);
+}
+
+.container button:active {
+  background-color: rgba(239, 243, 244, 0.2);
+}
+
+button.danger {
+  background-color: #f4212e;
+}
+
+button.danger:hover {
+  background-color: #e3202d;
+}
+
+button.danger:active {
+  background-color: #c61a25;
+}

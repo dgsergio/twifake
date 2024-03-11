@@ -30,6 +30,9 @@ export const postsSlice = createSlice({
     addPost: (state, action: PayloadAction<PostItem>) => {
       state.posts.push(action.payload);
     },
+    removePost: (state, action: PayloadAction<string>) => {
+      state.posts = state.posts.filter((post) => post._id !== action.payload);
+    },
     setStatus: (
       state,
       action: PayloadAction<{ loading: boolean; error: string }>
@@ -39,7 +42,7 @@ export const postsSlice = createSlice({
   },
 });
 
-export const { populate, setStatus, addPost } = postsSlice.actions;
+export const { populate, setStatus, addPost, removePost } = postsSlice.actions;
 
 export const getPosts = (url: string) => {
   return async (dispatch: AppDispatch) => {
@@ -58,7 +61,6 @@ export const getPosts = (url: string) => {
 
 export type RequestApi = {
   url: string;
-  method: string;
   body: string;
 };
 
@@ -66,14 +68,14 @@ export const postPost = (req: RequestApi) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch(setStatus({ loading: true, error: '' }));
-      let token = localStorage.getItem('token') as string;
+      let token = localStorage.getItem('token')!.slice(1, -1);
 
       const response = await fetch(req.url, {
-        method: req.method,
-        body: req.body ? req.body : null,
+        method: 'POST',
+        body: req.body,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token.slice(1, -1)!}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       if (!response.ok) throw new Error('Something went wrong');
@@ -87,6 +89,29 @@ export const postPost = (req: RequestApi) => {
         post: JSON.parse(req.body).post,
       };
       dispatch(addPost(post));
+      dispatch(setStatus({ loading: false, error: '' }));
+    } catch (err) {
+      dispatch(setStatus({ loading: false, error: 'Error: ' + err }));
+    }
+  };
+};
+
+export const deletePost = (url: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setStatus({ loading: true, error: '' }));
+      let token = localStorage.getItem('token')!.slice(1, -1);
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) throw new Error('Something went wrong');
+
+      const data = await response.json();
+      dispatch(removePost(data.post._id));
       dispatch(setStatus({ loading: false, error: '' }));
     } catch (err) {
       dispatch(setStatus({ loading: false, error: 'Error: ' + err }));

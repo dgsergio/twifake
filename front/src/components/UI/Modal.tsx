@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import classes from './Modal.module.css';
 import logo from '../../assets/logo-white.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,16 +11,21 @@ type Props = {
   className?: string;
 };
 
-function Modal({ children, showIcon = false, onShowModal, className }: Props) {
-  const allClasses = `${className} ${classes.content}`;
+function ModalOverlay({
+  children,
+  showIcon = false,
+  onShowModal,
+  className,
+}: Props) {
+  const allClasses = `${className} ${classes.modal}`;
   return (
     <>
       <div
         className={classes.backdrop}
         onClick={() => !showIcon && onShowModal(false)}
       />
-      <div className={classes.modal}>
-        <div className={allClasses}>
+      <div className={allClasses}>
+        <div className={classes.content}>
           <div className={classes.header}>
             <button onClick={() => onShowModal(false)}>
               <FontAwesomeIcon icon={faX} />
@@ -32,5 +38,29 @@ function Modal({ children, showIcon = false, onShowModal, className }: Props) {
     </>
   );
 }
+
+const Modal = ({
+  children,
+  showIcon = false,
+  onShowModal,
+  className,
+}: Props) => {
+  const portalModal = document.getElementById('modal-overlay') as HTMLElement;
+
+  return (
+    <>
+      {ReactDOM.createPortal(
+        <ModalOverlay
+          onShowModal={onShowModal}
+          showIcon={showIcon}
+          className={className}
+        >
+          {children}
+        </ModalOverlay>,
+        portalModal
+      )}
+    </>
+  );
+};
 
 export default Modal;

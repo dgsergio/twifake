@@ -17,6 +17,8 @@ Replica de la red social twitter utiliznado stack MERN
   - [x] Rules if not login
   - [x] UserDetail fixed bottom
   - [x] create post click outside fix
+  - [x] loggeduser logic on redux store
+  - [x] add deletioon confirmation
   - [ ] fix UI if no data is loaded, twiter shows a loading full screen
   - [ ] Use the userDetail component for Who to folow
   - [ ] Validate sign in (see rules on backend)
@@ -24,4 +26,4 @@ Replica de la red social twitter utiliznado stack MERN
   - [ ] scroll to top react router?
   - [ ] Back documentation
   - [ ] Responsive
-  - [ ] current user stored in redux useffect
+  - [ ] signin if logged fix
