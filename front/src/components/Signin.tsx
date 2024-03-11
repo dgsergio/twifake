@@ -2,9 +2,11 @@ import { useState } from 'react';
 import logo from '../assets/logo-white.png';
 import classes from './Signin.module.css';
 import SigninModal from './SigninModal';
+import SignupModal from './SignupModal';
 
 function Signin() {
   const [showSignin, setShowSignin] = useState<boolean>(false);
+  const [showSignup, setShowSignup] = useState<boolean>(false);
   const year = new Date().getFullYear();
   const footerTxt = [
     'Twifake',
@@ -16,7 +18,13 @@ function Signin() {
 
   return (
     <>
-      {showSignin && <SigninModal onSetShowSignin={setShowSignin} />}
+      {showSignin && (
+        <SigninModal
+          onSetShowSignin={setShowSignin}
+          onSetShowSignup={setShowSignup}
+        />
+      )}
+      {showSignup && <SignupModal onSetShowSignup={setShowSignup} />}
       <main className={classes.main}>
         <div className={classes.container}>
           <div className={classes.image}>
@@ -36,7 +44,12 @@ function Signin() {
               <p>or</p>
               <div className={classes.line} />
             </div>
-            <button className={classes['btn-secondary']}>Create account</button>
+            <button
+              className={classes['btn-secondary']}
+              onClick={() => setShowSignup(true)}
+            >
+              Create account
+            </button>
             <p className={classes.terms}>
               By signing up, you agree to the Terms of Service and Privacy
               Policy, including Cookie Use.

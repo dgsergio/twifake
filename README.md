@@ -5,6 +5,7 @@ Replica de la red social twitter utiliznado stack MERN
 ### To do
 
 - [x] Crear una Api con Node y Express
+
   - [x] Debera registrar un usuario con: Nombre unico, email unico, url de foto perfil, password hasheado y utilizar token para permanecer conectado
   - [x] Podra ingresar 150 caracteres y opcional imagen.
   - [x] Se mostraran todos los twifake publicos pero solo el author podrá editarlos o borrarlos
@@ -21,9 +22,19 @@ Replica de la red social twitter utiliznado stack MERN
   - [x] add deletioon confirmation
   - [ ] fix UI if no data is loaded, twiter shows a loading full screen
   - [ ] Use the userDetail component for Who to folow
+  - [ ] Who to folow should be last registered users linking their profil
+  - [ ] "Subscribe to Premium" should be about this proyect, linking to pixel40
   - [ ] Validate sign in (see rules on backend)
   - [ ] create user in signup
   - [ ] scroll to top react router?
   - [ ] Back documentation
   - [ ] Responsive
   - [ ] signin if logged fix
+  - [ ] add like post
+  - [ ] add share post
+  - [ ] add author to the header with the Z icon
+  - [ ] add Community to the header showing all users
+  - [ ] light/ dark mode
+  - [ ] move signin call api to the store but create own slice.
+  - [ ] Move current user state to newly sign slice created
+  - [ ] Load automaticly current user to state.

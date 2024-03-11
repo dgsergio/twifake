@@ -1,5 +1,5 @@
 .body {
-  max-width: 29rem;
+  max-width: 38rem;
   margin: 3rem auto;
 }
 
@@ -49,4 +49,9 @@
   padding: 0;
   font-weight: 400;
   color: var(--active-color);
+}
+
+.form button {
+  margin-top: 6rem;
+  padding: 1.5rem;
 }

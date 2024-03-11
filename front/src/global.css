@@ -44,9 +44,10 @@ button:disabled {
 }
 
 .message {
+  z-index: 200;
   position: fixed;
   text-align: center;
-  bottom: 2rem;
+  bottom: 3rem;
   width: 100%;
 }
 
