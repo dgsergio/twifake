@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { validate } from '../utils/validate';
 import { useEffect, useState } from 'react';
 import Modal from './UI/Modal';
+import { AppDispatch, RootState } from '../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { signIn } from '../store/usersSlice';
 
 function SigninModal({
   onSetShowSignin,
@@ -12,6 +15,10 @@ function SigninModal({
   onSetShowSignup: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  const loadingStatus = useSelector(
+    (state: RootState) => state.users.loadingStatus
+  );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const showSignUpHandler = () => {
@@ -38,29 +45,20 @@ function SigninModal({
       setErrorMsg(validate(username.value, password.value));
       return;
     }
-    // move to store
-    try {
-      const response = await fetch('http://localhost:3000/api/v1/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          name: username.value,
-          password: password.value,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) throw new Error('Something is not ok');
 
-      const data = await response.json();
-      localStorage.setItem('token', JSON.stringify(data.token));
+    const req = {
+      url: 'http://localhost:3000/api/v1/login',
+      body: JSON.stringify({
+        name: username.value,
+        password: password.value,
+      }),
+    };
+    dispatch(signIn(req));
+
+    if (loadingStatus.error === '') {
       navigate('/');
-    } catch (err) {
-      const { message } = err as typeof err & {
-        message: string;
-      };
-      console.log(message);
-    }
+      return;
+    } else setErrorMsg(loadingStatus.error);
   };
 
   return (

@@ -20,6 +20,7 @@ Replica de la red social twitter utiliznado stack MERN
   - [x] create post click outside fix
   - [x] loggeduser logic on redux store
   - [x] add deletioon confirmation
+  - [x] move signin call api to the store.
   - [ ] fix UI if no data is loaded, twiter shows a loading full screen
   - [ ] Use the userDetail component for Who to folow
   - [ ] Who to folow should be last registered users linking their profil
@@ -35,6 +36,4 @@ Replica de la red social twitter utiliznado stack MERN
   - [ ] add author to the header with the Z icon
   - [ ] add Community to the header showing all users
   - [ ] light/ dark mode
-  - [ ] move signin call api to the store but create own slice.
-  - [ ] Move current user state to newly sign slice created
-  - [ ] Load automaticly current user to state.
+  - [ ] move getLoggedUser to the reducer in usersslice?

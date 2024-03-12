@@ -41,7 +41,7 @@ export const usersSlice = createSlice({
     ) => {
       state.loadingStatus = action.payload;
     },
-    setCurrentUser: (
+    setAuthUser: (
       state,
       action: PayloadAction<{ id: string; userName: string }>
     ) => {
@@ -53,13 +53,13 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { populate, setStatus, setCurrentUser } = usersSlice.actions;
+export const { populate, setStatus, setAuthUser } = usersSlice.actions;
 
 type RequestApi = {
   url: string;
 };
 
-export const callApi = (req: RequestApi) => {
+export const getUsers = (req: RequestApi) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch(setStatus({ loading: true, error: '' }));
@@ -75,15 +75,46 @@ export const callApi = (req: RequestApi) => {
 };
 
 export const getLoggedUser = () => {
+  //move to reducer?
   return (dispatch: AppDispatch) => {
     dispatch(setStatus({ loading: true, error: '' }));
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       type UserToken = { name: string; id: string; iat: number; exp: number };
       const decoded: UserToken = jwtDecode(storedToken);
-      dispatch(setCurrentUser({ id: decoded.id, userName: decoded.name }));
+      dispatch(setAuthUser({ id: decoded.id, userName: decoded.name }));
     }
     dispatch(setStatus({ loading: true, error: '' }));
+  };
+};
+
+type SignInReq = {
+  url: string;
+  body: string;
+};
+
+export const signIn = (req: SignInReq) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(setStatus({ loading: true, error: '' }));
+    try {
+      const response = await fetch(req.url, {
+        method: 'POST',
+        body: req.body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) throw new Error('Something is not ok');
+      const data = await response.json();
+      localStorage.setItem('token', JSON.stringify(data.token));
+      dispatch(setAuthUser({ id: data.user._id, userName: data.user.name }));
+      dispatch(setStatus({ loading: false, error: '' }));
+    } catch (err) {
+      const { message } = err as typeof err & {
+        message: string;
+      };
+      dispatch(setStatus({ loading: false, error: message }));
+    }
   };
 };
 

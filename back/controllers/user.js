@@ -18,7 +18,9 @@ const login = async (req, res) => {
   const passwordMatch = await user.comparePassword(password);
   if (!passwordMatch) throw new Unauthorize('Invalid password');
   const token = user.createToken(user._id);
-  res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
+  res
+    .status(StatusCodes.OK)
+    .json({ user: { name: user.name, _id: user._id }, token });
 };
 
 const getAllUsers = async (req, res) => {

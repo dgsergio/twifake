@@ -3,7 +3,7 @@ import { AppDispatch } from '../store';
 import classes from './Main.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../store/postsSlice';
-import { callApi as callUsersApi } from '../store/usersSlice';
+import { getUsers } from '../store/usersSlice';
 import { RootState } from '../store';
 import Post from './Post';
 import { User } from '../store/usersSlice';
@@ -20,7 +20,7 @@ const Main = ({ currentUserID }: { currentUserID: string }) => {
 
   useEffect(() => {
     dispatch(getPosts('http://localhost:3000/api/v1/posts'));
-    dispatch(callUsersApi({ url: 'http://localhost:3000/api/v1/users' }));
+    dispatch(getUsers({ url: 'http://localhost:3000/api/v1/users' }));
   }, []);
 
   const findUser = (id: string) => {
