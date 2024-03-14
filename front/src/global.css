@@ -4,6 +4,7 @@
   --active-color: #1d9bf0;
   --white-color: #f7f9f9;
   --dark-color: #15202b;
+  --red-color: #f4212e;
 }
 html {
   box-sizing: border-box;
@@ -47,8 +48,13 @@ button:disabled {
   z-index: 200;
   position: fixed;
   text-align: center;
-  bottom: 3rem;
+  bottom: 2rem;
   width: 100%;
+}
+
+.error,
+.message p.error {
+  background-color: var(--red-color);
 }
 
 .message p {

@@ -1,20 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from 'react-router-dom';
 import Root from './routes/Root';
 import './global.css';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import Signin from './components/Signin';
 
+const checkAuth = (isSigning: boolean) => {
+  const token = localStorage.getItem('token');
+  if (token && isSigning) return redirect('/');
+  if (!token && !isSigning) return redirect('/signin');
+  return 0;
+};
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
-  },
-  {
-    path: '/signin',
-    element: <Signin />,
+    children: [
+      { index: true, element: <Root />, loader: () => checkAuth(false) },
+      {
+        path: '/signin',
+        element: <Signin />,
+        loader: () => checkAuth(true),
+      },
+    ],
   },
 ]);
 

@@ -1,16 +1,23 @@
 import classes from './SignModal.module.css';
-import { useNavigate } from 'react-router-dom';
-import { validate } from '../utils/validate';
+import { validateSignup } from '../utils/validate';
 import { useEffect, useState } from 'react';
 import Modal from './UI/Modal';
+import { useNavigate } from 'react-router-dom';
+import { AppDispatch, RootState } from '../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { signIn } from '../store/usersSlice';
 
 function SignupModal({
   onSetShowSignup,
 }: {
   onSetShowSignup: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  const loadingStatus = useSelector(
+    (state: RootState) => state.users.loadingStatus
+  );
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -22,15 +29,49 @@ function SignupModal({
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const { username, password, password2, email } =
+    const { username, password, password2, email, profileUrl } =
       e.target as typeof e.target & {
         username: { value: string };
         password: { value: string };
         password2: { value: string };
         email: { value: string };
+        profileUrl: { value: string };
       };
-    console.log(username.value, password.value, password2.value, email.value);
-    // validate
+
+    const response = validateSignup(
+      username.value,
+      password.value,
+      password2.value,
+      email.value,
+      profileUrl.value
+    );
+
+    if (response.length !== 0) {
+      const fullMsg =
+        response[0].slice(0, 1).toLocaleUpperCase() +
+        response.join(', ').slice(1) +
+        '.';
+      setErrorMsg(fullMsg);
+      return;
+    }
+
+    const req = {
+      url: 'http://localhost:3000/api/v1/signup',
+      body: JSON.stringify({
+        name: username.value,
+        password: password.value,
+        email: email.value,
+      }),
+    };
+
+    dispatch(signIn(req));
+
+    if (loadingStatus.error !== '') {
+      setErrorMsg(loadingStatus.error);
+      return;
+    }
+    onSetShowSignup(false);
+    navigate('/');
   };
 
   return (
@@ -39,21 +80,26 @@ function SignupModal({
         <div className={classes.body}>
           <h2>Create your account</h2>
           <form className={classes.form} onSubmit={submitHandler}>
-            <input type="text" name="username" placeholder="Username" />
-            <input type="email" name="email" placeholder="Email" />
-            <input type="password" name="password" placeholder="password" />
+            <input type="text" name="username" placeholder="Username*" />
+            <input type="email" name="email" placeholder="Email*" />
+            <input type="password" name="password" placeholder="password*" />
             <input
               type="password"
               name="password2"
-              placeholder="repeat password"
+              placeholder="repeat password*"
+            />
+            <input
+              type="url"
+              name="profileUrl"
+              placeholder="Profile image URL"
             />
             <button>Sign up</button>
           </form>
         </div>
       </Modal>
       {errorMsg && (
-        <div className="message error">
-          <p>We could not access your account.</p>
+        <div className="message">
+          <p className="error">{errorMsg}</p>
         </div>
       )}
     </>

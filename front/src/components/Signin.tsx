@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '../assets/logo-white.png';
 import classes from './Signin.module.css';
 import SigninModal from './SigninModal';
 import SignupModal from './SignupModal';
+import { getUsers } from '../store/usersSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store';
 
 function Signin() {
   const [showSignin, setShowSignin] = useState<boolean>(false);
   const [showSignup, setShowSignup] = useState<boolean>(false);
+  const dispatch: AppDispatch = useDispatch();
+
   const year = new Date().getFullYear();
   const footerTxt = [
     'Twifake',
@@ -16,12 +21,16 @@ function Signin() {
     `© ${year} Z Corp.`,
   ];
 
+  useEffect(() => {
+    dispatch(getUsers({ url: 'http://localhost:3000/api/v1/users' }));
+  }, []);
+
   return (
     <>
       {showSignin && (
         <SigninModal
-          onSetShowSignin={setShowSignin}
           onSetShowSignup={setShowSignup}
+          onSetShowSignin={setShowSignin}
         />
       )}
       {showSignup && <SignupModal onSetShowSignup={setShowSignup} />}

@@ -26,5 +26,5 @@
 }
 
 .danger {
-  color: #f4212e;
+  color: var(--red-color);
 }

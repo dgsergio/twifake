@@ -6,9 +6,10 @@ const { Unauthorize } = require('../errors');
 const signup = async (req, res) => {
   const user = await User.create(req.body);
   const token = user.createToken(user._id);
-  res
-    .status(StatusCodes.OK)
-    .json({ user: { name: user.name, email: user.email }, token });
+  res.status(StatusCodes.OK).json({
+    user: { name: user.name, _id: user._id },
+    token,
+  });
 };
 
 const login = async (req, res) => {

@@ -45,15 +45,31 @@ export const usersSlice = createSlice({
       state,
       action: PayloadAction<{ id: string; userName: string }>
     ) => {
-      const findUser = state.users.find(
+      const foundUser = state.users.find(
         (user) => user._id === action.payload.id
       );
-      if (findUser) state.loggedUser = findUser;
+
+      if (foundUser) state.loggedUser = foundUser;
+    },
+    getLoggedUser: (state) => {
+      const storedToken = localStorage.getItem('token');
+      if (storedToken) {
+        type UserToken = {
+          name: string;
+          id: string;
+          iat: number;
+          exp: number;
+        };
+        const decoded: UserToken = jwtDecode(storedToken);
+        const foundUser = state.users.find((user) => user._id === decoded.id);
+        if (foundUser) state.loggedUser = foundUser;
+      }
     },
   },
 });
 
-export const { populate, setStatus, setAuthUser } = usersSlice.actions;
+export const { populate, setStatus, setAuthUser, getLoggedUser } =
+  usersSlice.actions;
 
 type RequestApi = {
   url: string;
@@ -74,20 +90,6 @@ export const getUsers = (req: RequestApi) => {
   };
 };
 
-export const getLoggedUser = () => {
-  //move to reducer?
-  return (dispatch: AppDispatch) => {
-    dispatch(setStatus({ loading: true, error: '' }));
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      type UserToken = { name: string; id: string; iat: number; exp: number };
-      const decoded: UserToken = jwtDecode(storedToken);
-      dispatch(setAuthUser({ id: decoded.id, userName: decoded.name }));
-    }
-    dispatch(setStatus({ loading: true, error: '' }));
-  };
-};
-
 type SignInReq = {
   url: string;
   body: string;
@@ -104,7 +106,9 @@ export const signIn = (req: SignInReq) => {
           'Content-Type': 'application/json',
         },
       });
+
       if (!response.ok) throw new Error('Something is not ok');
+
       const data = await response.json();
       localStorage.setItem('token', JSON.stringify(data.token));
       dispatch(setAuthUser({ id: data.user._id, userName: data.user.name }));

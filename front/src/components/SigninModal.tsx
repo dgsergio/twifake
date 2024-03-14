@@ -1,25 +1,30 @@
 import classes from './SignModal.module.css';
-import { useNavigate } from 'react-router-dom';
-import { validate } from '../utils/validate';
+import { validateSignin } from '../utils/validate';
 import { useEffect, useState } from 'react';
 import Modal from './UI/Modal';
 import { AppDispatch, RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from '../store/usersSlice';
+import { useNavigate } from 'react-router-dom';
 
 function SigninModal({
-  onSetShowSignin,
   onSetShowSignup,
+  onSetShowSignin,
 }: {
-  onSetShowSignin: React.Dispatch<React.SetStateAction<boolean>>;
   onSetShowSignup: React.Dispatch<React.SetStateAction<boolean>>;
+  onSetShowSignin: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const loadingStatus = useSelector(
     (state: RootState) => state.users.loadingStatus
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    if (token && loadingStatus.error === '') navigate('/');
+  }, [token]);
 
   const showSignUpHandler = () => {
     onSetShowSignin(false);
@@ -35,14 +40,18 @@ function SigninModal({
 
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-
     const { username, password } = e.target as typeof e.target & {
       username: { value: string };
       password: { value: string };
     };
+    const response = validateSignin(username.value, password.value);
 
-    if (validate(username.value, password.value) !== 'ok') {
-      setErrorMsg(validate(username.value, password.value));
+    if (response.length !== 0) {
+      const fullMsg =
+        response[0].slice(0, 1).toLocaleUpperCase() +
+        response.join(', ').slice(1) +
+        '.';
+      setErrorMsg(fullMsg);
       return;
     }
 
@@ -54,11 +63,6 @@ function SigninModal({
       }),
     };
     dispatch(signIn(req));
-
-    if (loadingStatus.error === '') {
-      navigate('/');
-      return;
-    } else setErrorMsg(loadingStatus.error);
   };
 
   return (
@@ -77,8 +81,8 @@ function SigninModal({
           <button onClick={showSignUpHandler}>Sign up</button>
         </div>
       </Modal>
-      {errorMsg && (
-        <div className="message error">
+      {(errorMsg || loadingStatus.error !== '') && (
+        <div className="message">
           <p>We could not access your account.</p>
         </div>
       )}
