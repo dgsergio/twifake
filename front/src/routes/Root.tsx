@@ -25,7 +25,7 @@ const Root = () => {
       {showCreatePost && (
         <PostModal
           onShowCreatePost={setShowCreatePost}
-          profileUrl={loggedUser.perfilUrl}
+          profileUrl={loggedUser.profileUrl}
         />
       )}
       <div className={classes.root}>

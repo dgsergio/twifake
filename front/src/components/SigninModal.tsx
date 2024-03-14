@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Modal from './UI/Modal';
 import { AppDispatch, RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { signIn } from '../store/usersSlice';
+import { signApi } from '../store/usersSlice';
 import { useNavigate } from 'react-router-dom';
 
 function SigninModal({
@@ -14,22 +14,22 @@ function SigninModal({
   onSetShowSignup: React.Dispatch<React.SetStateAction<boolean>>;
   onSetShowSignin: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const loadingStatus = useSelector(
     (state: RootState) => state.users.loadingStatus
   );
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const navigate = useNavigate();
   const token = localStorage.getItem('token');
-
-  useEffect(() => {
-    if (token && loadingStatus.error === '') navigate('/');
-  }, [token]);
 
   const showSignUpHandler = () => {
     onSetShowSignin(false);
     onSetShowSignup(true);
   };
+
+  useEffect(() => {
+    if (token && loadingStatus.error === '') navigate('/');
+  }, [token]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -40,6 +40,7 @@ function SigninModal({
 
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
     const { username, password } = e.target as typeof e.target & {
       username: { value: string };
       password: { value: string };
@@ -57,12 +58,12 @@ function SigninModal({
 
     const req = {
       url: 'http://localhost:3000/api/v1/login',
-      body: JSON.stringify({
+      body: {
         name: username.value,
         password: password.value,
-      }),
+      },
     };
-    dispatch(signIn(req));
+    dispatch(signApi(req));
   };
 
   return (

@@ -11,8 +11,9 @@
 }
 
 .section p {
-  margin: 1rem 0;
+  margin: 1rem 0 1.5rem;
   font-size: 1.4rem;
+  line-height: 1.3;
 }
 
 .section button {
@@ -20,9 +21,14 @@
   padding: 0.8rem 1.5rem;
 }
 
+.section a {
+  color: white;
+  text-decoration: none;
+}
+
 .follow {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 3rem;
   margin: 2rem 0;
 }

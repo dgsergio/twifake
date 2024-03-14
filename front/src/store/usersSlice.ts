@@ -8,7 +8,7 @@ export type User = {
   _id: string;
   name: string;
   email: string;
-  perfilUrl: string;
+  profileUrl: string;
 };
 
 export interface UserState {
@@ -17,13 +17,15 @@ export interface UserState {
   loadingStatus: { loading: boolean; error: string };
 }
 
+const initialLoggedUserState: User = {
+  _id: '...',
+  email: '...',
+  name: '...',
+  profileUrl: noAvatar,
+};
+
 const initialState: UserState = {
-  loggedUser: {
-    _id: '...',
-    email: '...',
-    name: '...',
-    perfilUrl: noAvatar,
-  },
+  loggedUser: initialLoggedUserState,
   users: [],
   loadingStatus: { loading: false, error: '' },
 };
@@ -34,6 +36,9 @@ export const usersSlice = createSlice({
   reducers: {
     populate: (state, action: PayloadAction<User[]>) => {
       state.users = action.payload;
+    },
+    addUser: (state, action: PayloadAction<User>) => {
+      state.users.push(action.payload);
     },
     setStatus: (
       state,
@@ -50,6 +55,10 @@ export const usersSlice = createSlice({
       );
 
       if (foundUser) state.loggedUser = foundUser;
+    },
+    logout: (state) => {
+      localStorage.clear();
+      state.loggedUser = initialLoggedUserState;
     },
     getLoggedUser: (state) => {
       const storedToken = localStorage.getItem('token');
@@ -68,8 +77,14 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { populate, setStatus, setAuthUser, getLoggedUser } =
-  usersSlice.actions;
+export const {
+  populate,
+  setStatus,
+  setAuthUser,
+  getLoggedUser,
+  logout,
+  addUser,
+} = usersSlice.actions;
 
 type RequestApi = {
   url: string;
@@ -90,18 +105,18 @@ export const getUsers = (req: RequestApi) => {
   };
 };
 
-type SignInReq = {
+type SignReq = {
   url: string;
-  body: string;
+  body: { name: string; password: string; email?: string; profileUrl?: string };
 };
 
-export const signIn = (req: SignInReq) => {
+export const signApi = (req: SignReq) => {
   return async (dispatch: AppDispatch) => {
     dispatch(setStatus({ loading: true, error: '' }));
     try {
       const response = await fetch(req.url, {
         method: 'POST',
-        body: req.body,
+        body: JSON.stringify(req.body),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -111,7 +126,18 @@ export const signIn = (req: SignInReq) => {
 
       const data = await response.json();
       localStorage.setItem('token', JSON.stringify(data.token));
-      dispatch(setAuthUser({ id: data.user._id, userName: data.user.name }));
+
+      if (req.body.email) {
+        const newUser: User = {
+          _id: data.user._id,
+          name: req.body.name,
+          email: req.body.email,
+          profileUrl: req.body.profileUrl || noAvatar,
+        };
+        dispatch(addUser(newUser));
+      }
+
+      dispatch(setAuthUser({ id: data.user._id, userName: req.body.name }));
       dispatch(setStatus({ loading: false, error: '' }));
     } catch (err) {
       const { message } = err as typeof err & {

@@ -10,7 +10,7 @@ const userSchema = new Schema({
     maxlength: 25,
     unique: true,
   },
-  perfilUrl: {
+  profileUrl: {
     type: String,
     match: [/^(ftp|http|https):\/\/[^ "]+$/, 'Please provide a valid URL'],
     default: 'https://i.ibb.co/9thsY3m/no-avatar.jpg',

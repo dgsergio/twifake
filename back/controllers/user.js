@@ -33,12 +33,10 @@ const getAllUsers = async (req, res) => {
     userInfo.push({
       name: i.name,
       email: i.email,
-      perfilUrl: i.perfilUrl,
+      profileUrl: i.profileUrl,
       _id: i._id,
     });
   }
-
-  console.log(userInfo);
 
   res.status(StatusCodes.OK).json(userInfo);
 };
@@ -50,7 +48,7 @@ const getUserById = async (req, res) => {
     _id: user._id,
     name: user.name,
     email: user.email,
-    perfilUrl: user.perfilUrl,
+    profileUrl: user.profileUrl,
   };
   res.status(StatusCodes.OK).json(userInfo);
 };

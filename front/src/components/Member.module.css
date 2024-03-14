@@ -1,18 +1,18 @@
-.twitter {
+.member {
   display: flex;
   gap: 1rem;
 }
 
-.twitter p {
+.member p {
   margin: 0;
   font-size: 1.4rem;
 }
 
-.twitter p:last-child {
+.member p:last-child {
   opacity: 0.5;
 }
 
-.twitter img {
+.member img {
   width: 3.5rem;
   border-radius: 50%;
 }

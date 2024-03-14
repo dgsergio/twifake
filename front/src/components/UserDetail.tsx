@@ -5,7 +5,7 @@ const UserDetail = ({ user }: { user: User }) => {
   return (
     <>
       <div className={classes['user-content']}>
-        <img src={user.perfilUrl} alt="user picture" />
+        <img src={user.profileUrl} alt="user picture" />
         <div className={classes['user-text']}>
           <p>{user.name}</p>
           <p>{user.email}</p>

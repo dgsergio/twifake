@@ -1,10 +1,13 @@
 .main {
   margin-left: 22.7rem;
+  min-height: 100vh;
+  border-left: 0.1rem solid rgba(255, 255, 255, 0.16);
+  border-right: 0.1rem solid rgba(255, 255, 255, 0.16);
 }
 
 .header {
   padding: 1.1rem;
-  border: 0.1rem solid rgba(255, 255, 255, 0.16);
+  border-bottom: 0.1rem solid rgba(255, 255, 255, 0.16);
 }
 
 .header h2 {

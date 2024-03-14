@@ -2,10 +2,10 @@ import classes from './SignModal.module.css';
 import { validateSignup } from '../utils/validate';
 import { useEffect, useState } from 'react';
 import Modal from './UI/Modal';
-import { useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { signIn } from '../store/usersSlice';
+import { signApi } from '../store/usersSlice';
+import { useNavigate } from 'react-router-dom';
 
 function SignupModal({
   onSetShowSignup,
@@ -18,6 +18,11 @@ function SignupModal({
   const loadingStatus = useSelector(
     (state: RootState) => state.users.loadingStatus
   );
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    if (token && loadingStatus.error === '') navigate('/');
+  }, [token]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -57,21 +62,15 @@ function SignupModal({
 
     const req = {
       url: 'http://localhost:3000/api/v1/signup',
-      body: JSON.stringify({
+      body: {
         name: username.value,
         password: password.value,
         email: email.value,
-      }),
+        profileUrl: profileUrl.value,
+      },
     };
 
-    dispatch(signIn(req));
-
-    if (loadingStatus.error !== '') {
-      setErrorMsg(loadingStatus.error);
-      return;
-    }
-    onSetShowSignup(false);
-    navigate('/');
+    dispatch(signApi(req));
   };
 
   return (
@@ -97,7 +96,7 @@ function SignupModal({
           </form>
         </div>
       </Modal>
-      {errorMsg && (
+      {(errorMsg || loadingStatus.error !== '') && (
         <div className="message">
           <p className="error">{errorMsg}</p>
         </div>

@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { User } from '../store/usersSlice';
+import { User, logout } from '../store/usersSlice';
 import classes from './UserCardModal.module.css';
 import UserDetail from './UserDetail';
 import ModalSmall from './UI/ModalSmall';
+import { AppDispatch } from '../store';
+import { useDispatch } from 'react-redux';
 
 function UserCardModal({
   user,
@@ -12,9 +14,10 @@ function UserCardModal({
   onToggleUserCard: () => void;
 }) {
   const navigator = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
 
   const logoutHandler = () => {
-    localStorage.clear();
+    dispatch(logout());
     navigator('/signin');
   };
 

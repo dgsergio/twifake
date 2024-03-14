@@ -23,7 +23,7 @@ function Post({ post, user, currentUserID }: Props) {
   return (
     <div className={classes.post}>
       <div>
-        <img src={user.perfilUrl} alt="user picture" />
+        <img src={user.profileUrl} alt="user picture" />
       </div>
       <div className={classes.content}>
         <div className={classes.container}>
