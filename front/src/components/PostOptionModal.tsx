@@ -11,11 +11,16 @@ import { useState } from 'react';
 type Props = {
   onToogleShowPostOption: () => void;
   postID: string;
+  postDate: string;
 };
 
-function PostOptionModal({ onToogleShowPostOption, postID }: Props) {
+function PostOptionModal({ onToogleShowPostOption, postID, postDate }: Props) {
   const dispatch: AppDispatch = useDispatch();
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const passedDate = new Date(postDate);
+  const currentDate = new Date();
+  const minutesDifference =
+    (currentDate.getTime() - passedDate.getTime()) / (1000 * 60);
 
   const showConfirmationHandler = (show: boolean) => {
     setShowConfirmation(show);
@@ -47,10 +52,12 @@ function PostOptionModal({ onToogleShowPostOption, postID }: Props) {
         <FontAwesomeIcon icon={faTrashCan} />
         Delete Post
       </button>
-      <button onClick={editHandler}>
-        <FontAwesomeIcon icon={faFileLines} />
-        Editar Post
-      </button>
+      {minutesDifference < 24 * 60 && (
+        <button onClick={editHandler}>
+          <FontAwesomeIcon icon={faFileLines} />
+          Editar Post
+        </button>
+      )}
     </ModalSmall>
   );
 }

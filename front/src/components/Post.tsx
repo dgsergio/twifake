@@ -39,6 +39,7 @@ function Post({ post, user, currentUserID }: Props) {
             <PostOptionModal
               onToogleShowPostOption={toogleShowPostOption}
               postID={post._id}
+              postDate={post.createdAt}
             />
           )}
           {post.createdBy === currentUserID && (

@@ -5,7 +5,7 @@ import { RootState } from '../../store';
 
 const FollowSidebarSection = () => {
   const users = useSelector((state: RootState) => state.users.users);
-  const newUsers = [...users].reverse().slice(3);
+  const newUsers = [...users].reverse().slice(0, 3);
 
   return (
     <section className={classes.section}>
