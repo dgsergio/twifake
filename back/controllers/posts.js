@@ -34,9 +34,25 @@ const deletePost = async (req, res) => {
   res.status(StatusCodes.OK).json({ post });
 };
 
+const updatePost = async (req, res) => {
+  const { id } = req.params;
+  const token = req.headers.authorization.split(' ')[1];
+  const { id: createdBy } = jwt.verify(token, process.env.JWT_SECRET);
+  const post = await Post.findOneAndUpdate(
+    {
+      createdBy,
+      _id: id,
+    },
+    req.body,
+    { new: true, runValidators: true }
+  );
+  res.status(StatusCodes.CREATED).json({ id: post._id });
+};
+
 module.exports = {
   getPosts,
   getPostsByUser,
   createPost,
   deletePost,
+  updatePost,
 };

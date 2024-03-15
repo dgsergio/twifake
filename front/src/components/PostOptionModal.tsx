@@ -22,8 +22,8 @@ function PostOptionModal({ onToogleShowPostOption, postID, postDate }: Props) {
   const minutesDifference =
     (currentDate.getTime() - passedDate.getTime()) / (1000 * 60);
 
-  const showConfirmationHandler = (show: boolean) => {
-    setShowConfirmation(show);
+  const hiddeModal = () => {
+    setShowConfirmation(false);
   };
 
   const deleteHandler = async () => {
@@ -35,20 +35,16 @@ function PostOptionModal({ onToogleShowPostOption, postID, postDate }: Props) {
   const editHandler = () => {
     onToogleShowPostOption();
     dispatch(setPostManager({ show: true, postId: postID }));
-    //Create a dispatch for updating the post
   };
 
   return (
     <ModalSmall onClick={onToogleShowPostOption} className={classes.option}>
       {showConfirmation && (
-        <ConfirmationModal
-          onShowConfirmation={showConfirmationHandler}
-          onDelete={deleteHandler}
-        />
+        <ConfirmationModal onHiddeModal={hiddeModal} onDelete={deleteHandler} />
       )}
       <button
         className={classes.danger}
-        onClick={() => showConfirmationHandler(true)}
+        onClick={() => setShowConfirmation(true)}
       >
         <FontAwesomeIcon icon={faTrashCan} />
         Delete Post

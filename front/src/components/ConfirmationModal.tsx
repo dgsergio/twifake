@@ -2,14 +2,14 @@ import Modal from './UI/Modal';
 import classes from './ConfirmationModal.module.css';
 
 type Props = {
-  onShowConfirmation: (show: boolean) => void;
+  onHiddeModal: () => void;
   onDelete: () => void;
 };
 
-function ConfirmationModal({ onShowConfirmation, onDelete }: Props) {
+function ConfirmationModal({ onHiddeModal, onDelete }: Props) {
   return (
     <Modal
-      onShowModal={onShowConfirmation}
+      onHiddeModal={onHiddeModal}
       showIcon={false}
       className={classes.modal}
     >
@@ -22,7 +22,7 @@ function ConfirmationModal({ onShowConfirmation, onDelete }: Props) {
         <button className={classes.danger} onClick={onDelete}>
           Delete
         </button>
-        <button onClick={() => onShowConfirmation(false)}>Cancel</button>
+        <button onClick={onHiddeModal}>Cancel</button>
       </div>
     </Modal>
   );

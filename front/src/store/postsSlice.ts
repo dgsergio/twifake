@@ -38,6 +38,16 @@ export const postsSlice = createSlice({
     addPost: (state, action: PayloadAction<PostItem>) => {
       state.posts.push(action.payload);
     },
+    updatePost: (
+      state,
+      action: PayloadAction<{ postId: string; postContent: string }>
+    ) => {
+      state.posts = state.posts.map((post) =>
+        post._id === action.payload.postId
+          ? { ...post, post: action.payload.postContent }
+          : post
+      );
+    },
     removePost: (state, action: PayloadAction<string>) => {
       state.posts = state.posts.filter((post) => post._id !== action.payload);
     },
@@ -50,8 +60,14 @@ export const postsSlice = createSlice({
   },
 });
 
-export const { populate, setStatus, addPost, removePost, setPostManager } =
-  postsSlice.actions;
+export const {
+  populate,
+  setStatus,
+  addPost,
+  removePost,
+  setPostManager,
+  updatePost,
+} = postsSlice.actions;
 
 export const getPosts = (url: string) => {
   return async (dispatch: AppDispatch) => {
@@ -70,18 +86,21 @@ export const getPosts = (url: string) => {
 
 export type RequestApi = {
   url: string;
-  body: string;
+  body: { post: string };
+  id: string;
 };
 
-export const postPost = (req: RequestApi) => {
+export const submitPost = (req: RequestApi) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch(setStatus({ loading: true, error: '' }));
-      let token = localStorage.getItem('token')!.slice(1, -1);
 
-      const response = await fetch(req.url, {
-        method: 'POST',
-        body: req.body,
+      let token = localStorage.getItem('token')!.slice(1, -1);
+      const url = req.id === '' ? req.url : req.url + '/' + req.id;
+
+      const response = await fetch(url, {
+        method: req.id === '' ? 'POST' : 'PATCH',
+        body: JSON.stringify(req.body),
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -90,14 +109,18 @@ export const postPost = (req: RequestApi) => {
       if (!response.ok) throw new Error('Something went wrong');
 
       const data = await response.json();
-      const decoded = jwtDecode(token) as { id: string };
-      const post: PostItem = {
-        _id: data.id,
-        createdAt: new Date().toISOString(),
-        createdBy: decoded.id,
-        post: JSON.parse(req.body).post,
-      };
-      dispatch(addPost(post));
+      if (req.id === '') {
+        const decoded = jwtDecode(token) as { id: string };
+        const post: PostItem = {
+          _id: data.id,
+          createdAt: new Date().toISOString(),
+          createdBy: decoded.id,
+          post: req.body.post,
+        };
+        dispatch(addPost(post));
+      } else {
+        dispatch(updatePost({ postId: req.id, postContent: req.body.post }));
+      }
       dispatch(setStatus({ loading: false, error: '' }));
     } catch (err) {
       dispatch(setStatus({ loading: false, error: 'Error: ' + err }));

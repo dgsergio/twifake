@@ -6,14 +6,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store';
-import { RequestApi, postPost, setPostManager } from '../store/postsSlice';
+import { RequestApi, submitPost, setPostManager } from '../store/postsSlice';
 
 function PostModal() {
-  const [value, setValue] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const dispatch: AppDispatch = useDispatch();
+  const { postId } = useSelector((state: RootState) => state.posts.postManager);
+  const { posts } = useSelector((state: RootState) => state.posts);
   const { profileUrl } = useSelector(
     (state: RootState) => state.users.loggedUser
+  );
+  const currentPost = posts.find((post) => post._id === postId);
+  const [value, setValue] = useState<string>(
+    currentPost ? currentPost.post : ''
   );
 
   useAutosizeTextArea(textAreaRef.current, value);
@@ -26,11 +31,13 @@ function PostModal() {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (value.trim().length < 1) return;
+
     const req: RequestApi = {
       url: 'http://localhost:3000/api/v1/posts',
-      body: JSON.stringify({ post: value }),
+      body: { post: value },
+      id: postId,
     };
-    dispatch(postPost(req));
+    dispatch(submitPost(req));
     dispatch(setPostManager({ show: false, postId: '' }));
   };
 
@@ -63,7 +70,7 @@ function PostModal() {
           </p>
           <div className={classes.footer}>
             <button disabled={value.trim().length < 1 ? true : false}>
-              Post
+              {postId ? 'Update' : 'Post'}
             </button>
           </div>
         </form>
