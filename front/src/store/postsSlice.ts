@@ -12,11 +12,13 @@ export type PostItem = {
 
 export interface PostState {
   posts: PostItem[];
+  postManager: { show: boolean; postId: string };
   loadingStatus: { loading: boolean; error: string };
 }
 
 const initialState: PostState = {
   posts: [],
+  postManager: { show: false, postId: '' },
   loadingStatus: { loading: false, error: '' },
 };
 
@@ -26,6 +28,12 @@ export const postsSlice = createSlice({
   reducers: {
     populate: (state, action: PayloadAction<PostItem[]>) => {
       state.posts = action.payload;
+    },
+    setPostManager: (
+      state,
+      action: PayloadAction<{ show: boolean; postId: string }>
+    ) => {
+      state.postManager = action.payload;
     },
     addPost: (state, action: PayloadAction<PostItem>) => {
       state.posts.push(action.payload);
@@ -42,7 +50,8 @@ export const postsSlice = createSlice({
   },
 });
 
-export const { populate, setStatus, addPost, removePost } = postsSlice.actions;
+export const { populate, setStatus, addPost, removePost, setPostManager } =
+  postsSlice.actions;
 
 export const getPosts = (url: string) => {
   return async (dispatch: AppDispatch) => {

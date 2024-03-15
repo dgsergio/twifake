@@ -21,36 +21,38 @@ function Post({ post, user, currentUserID }: Props) {
 
   if (!user) return;
   return (
-    <div className={classes.post}>
-      <div>
-        <img src={user.profileUrl} alt="user picture" />
-      </div>
-      <div className={classes.content}>
-        <div className={classes.container}>
-          <div className={classes.title}>
-            <p>
-              {user.name}{' '}
-              <span>
-                {user.email} - {timePassed(post.createdAt)}
-              </span>
-            </p>
-          </div>
-          {showPostOption && (
-            <PostOptionModal
-              onToogleShowPostOption={toogleShowPostOption}
-              postID={post._id}
-              postDate={post.createdAt}
-            />
-          )}
-          {post.createdBy === currentUserID && (
-            <button onClick={toogleShowPostOption}>
-              <FontAwesomeIcon icon={faEllipsis} />
-            </button>
-          )}
+    <>
+      <div className={classes.post}>
+        <div>
+          <img src={user.profileUrl} alt="user picture" />
         </div>
-        <p>{post.post}</p>
+        <div className={classes.content}>
+          <div className={classes.container}>
+            <div className={classes.title}>
+              <p>
+                {user.name}{' '}
+                <span>
+                  {user.email} - {timePassed(post.createdAt)}
+                </span>
+              </p>
+            </div>
+            {showPostOption && (
+              <PostOptionModal
+                onToogleShowPostOption={toogleShowPostOption}
+                postID={post._id}
+                postDate={post.createdAt}
+              />
+            )}
+            {post.createdBy === currentUserID && (
+              <button onClick={toogleShowPostOption}>
+                <FontAwesomeIcon icon={faEllipsis} />
+              </button>
+            )}
+          </div>
+          <p>{post.post}</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

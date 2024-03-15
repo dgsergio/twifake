@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileLines, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { AppDispatch } from '../store';
 import { useDispatch } from 'react-redux';
-import { deletePost } from '../store/postsSlice';
+import { deletePost, setPostManager } from '../store/postsSlice';
 import ConfirmationModal from './ConfirmationModal';
 import { useState } from 'react';
 
@@ -33,8 +33,9 @@ function PostOptionModal({ onToogleShowPostOption, postID, postDate }: Props) {
   };
 
   const editHandler = () => {
-    alert('edit me' + postID);
     onToogleShowPostOption();
+    dispatch(setPostManager({ show: true, postId: postID }));
+    //Create a dispatch for updating the post
   };
 
   return (

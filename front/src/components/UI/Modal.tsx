@@ -7,14 +7,14 @@ import { faX } from '@fortawesome/free-solid-svg-icons';
 type Props = {
   children: React.ReactNode;
   showIcon: boolean;
-  onShowModal: (show: boolean) => void;
+  onHiddeModal: () => void;
   className?: string;
 };
 
 function ModalOverlay({
   children,
   showIcon = false,
-  onShowModal,
+  onHiddeModal,
   className,
 }: Props) {
   const allClasses = `${className} ${classes.modal}`;
@@ -22,12 +22,12 @@ function ModalOverlay({
     <>
       <div
         className={classes.backdrop}
-        onClick={() => !showIcon && onShowModal(false)}
+        onClick={() => !showIcon && onHiddeModal()}
       />
       <div className={allClasses}>
         <div className={classes.content}>
           <div className={classes.header}>
-            <button onClick={() => onShowModal(false)}>
+            <button onClick={onHiddeModal}>
               <FontAwesomeIcon icon={faX} />
             </button>
             {showIcon && <img src={logo} alt="logo icon" />}
@@ -42,7 +42,7 @@ function ModalOverlay({
 const Modal = ({
   children,
   showIcon = false,
-  onShowModal,
+  onHiddeModal,
   className,
 }: Props) => {
   const portalModal = document.getElementById('modal-overlay') as HTMLElement;
@@ -51,7 +51,7 @@ const Modal = ({
     <>
       {ReactDOM.createPortal(
         <ModalOverlay
-          onShowModal={onShowModal}
+          onHiddeModal={onHiddeModal}
           showIcon={showIcon}
           className={className}
         >

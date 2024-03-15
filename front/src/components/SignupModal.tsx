@@ -31,6 +31,10 @@ function SignupModal({
     return () => clearTimeout(timeout);
   }, [errorMsg]);
 
+  const hiddeModal = () => {
+    onSetShowSignup(false);
+  };
+
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
@@ -75,7 +79,7 @@ function SignupModal({
 
   return (
     <>
-      <Modal onShowModal={onSetShowSignup} showIcon={true}>
+      <Modal onHiddeModal={hiddeModal} showIcon={true}>
         <div className={classes.body}>
           <h2>Create your account</h2>
           <form className={classes.form} onSubmit={submitHandler}>

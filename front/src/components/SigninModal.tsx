@@ -27,6 +27,10 @@ function SigninModal({
     onSetShowSignup(true);
   };
 
+  const hiddeModal = () => {
+    onSetShowSignin(false);
+  };
+
   useEffect(() => {
     if (token && loadingStatus.error === '') navigate('/');
   }, [token]);
@@ -68,7 +72,7 @@ function SigninModal({
 
   return (
     <>
-      <Modal onShowModal={onSetShowSignin} showIcon={true}>
+      <Modal onHiddeModal={hiddeModal} showIcon={true}>
         <div className={classes.body}>
           <h2>Sign in to Z</h2>
           <form onSubmit={submitHandler}>

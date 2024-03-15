@@ -9,13 +9,21 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import UserMenu from './UserMenu';
 import { User } from '../store/usersSlice';
+import { AppDispatch } from '../store';
+import { useDispatch } from 'react-redux';
+import { setPostManager } from '../store/postsSlice';
 
 type Props = {
   user: User;
-  onShowCreatePost: (show: boolean) => void;
 };
 
-const Header = ({ user, onShowCreatePost }: Props) => {
+const Header = ({ user }: Props) => {
+  const dispatch: AppDispatch = useDispatch();
+
+  const createPostHandler = () => {
+    dispatch(setPostManager({ show: true, postId: '' }));
+  };
+
   return (
     <header className={classes.header}>
       <nav>
@@ -52,7 +60,7 @@ const Header = ({ user, onShowCreatePost }: Props) => {
             <span>Profile</span>
           </li>
         </ul>
-        <button onClick={() => onShowCreatePost(true)}>Post</button>
+        <button onClick={createPostHandler}>Post</button>
       </nav>
       <UserMenu user={user} />
     </header>

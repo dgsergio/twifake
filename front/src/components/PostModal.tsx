@@ -4,19 +4,17 @@ import { useRef, useState } from 'react';
 import useAutosizeTextArea from './hooks/useAutosizeTextArea';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../store';
-import { RequestApi, postPost } from '../store/postsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../store';
+import { RequestApi, postPost, setPostManager } from '../store/postsSlice';
 
-type Props = {
-  onShowCreatePost: (show: boolean) => void;
-  profileUrl: string;
-};
-
-function PostModal({ onShowCreatePost, profileUrl }: Props) {
+function PostModal() {
   const [value, setValue] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const dispatch: AppDispatch = useDispatch();
+  const { profileUrl } = useSelector(
+    (state: RootState) => state.users.loggedUser
+  );
 
   useAutosizeTextArea(textAreaRef.current, value);
 
@@ -33,12 +31,16 @@ function PostModal({ onShowCreatePost, profileUrl }: Props) {
       body: JSON.stringify({ post: value }),
     };
     dispatch(postPost(req));
-    onShowCreatePost(false);
+    dispatch(setPostManager({ show: false, postId: '' }));
+  };
+
+  const hiddeCreatePost = () => {
+    dispatch(setPostManager({ show: false, postId: '' }));
   };
 
   return (
     <Modal
-      onShowModal={onShowCreatePost}
+      onHiddeModal={hiddeCreatePost}
       showIcon={false}
       className={classes.modal}
     >
