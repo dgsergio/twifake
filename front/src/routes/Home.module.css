@@ -1,0 +1,10 @@
+.nav {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.4rem;
+  margin: 1rem;
+}
+
+.body {
+  margin-top: 4.8rem;
+}

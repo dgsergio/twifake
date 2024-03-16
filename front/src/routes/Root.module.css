@@ -2,3 +2,11 @@
   display: flex;
   margin: 0 16rem;
 }
+
+.main {
+  margin-left: 22.7rem;
+  min-width: 57rem;
+  min-height: 100vh;
+  border-left: 0.1rem solid rgba(255, 255, 255, 0.16);
+  border-right: 0.1rem solid rgba(255, 255, 255, 0.16);
+}

@@ -5,11 +5,13 @@ import {
   redirect,
   RouterProvider,
 } from 'react-router-dom';
-import Root from './routes/Root';
 import './global.css';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import Signin from './components/Signin';
+import Root from './routes/Root';
+import Home from './routes/Home';
+import Profile from './routes/Profile';
 
 const checkAuth = (isSigning: boolean) => {
   const token = localStorage.getItem('token');
@@ -21,14 +23,20 @@ const checkAuth = (isSigning: boolean) => {
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <Root />,
     children: [
-      { index: true, element: <Root />, loader: () => checkAuth(false) },
+      { index: true, element: <Home />, loader: () => checkAuth(false) },
       {
-        path: '/signin',
-        element: <Signin />,
-        loader: () => checkAuth(true),
+        path: '/:userName',
+        element: <Profile />,
+        loader: () => checkAuth(false),
       },
     ],
+  },
+  {
+    path: '/signin',
+    element: <Signin />,
+    loader: () => checkAuth(true),
   },
 ]);
 

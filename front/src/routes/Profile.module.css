@@ -1,0 +1,41 @@
+.content {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.content button {
+  background-color: transparent;
+}
+
+.back {
+  height: 100%;
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+.back:hover {
+  background-color: #f7f9f91a;
+}
+
+.content svg {
+  font-size: 1.5rem;
+}
+
+.info {
+  font-size: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+}
+
+.info span {
+  display: block;
+}
+
+.info-sub {
+  font-size: 1.3rem;
+  opacity: 0.5;
+  font-weight: normal;
+}

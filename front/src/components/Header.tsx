@@ -9,9 +9,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import UserMenu from './UserMenu';
 import { User } from '../store/usersSlice';
-import { AppDispatch } from '../store';
-import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../store';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPostManager } from '../store/postsSlice';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   user: User;
@@ -19,6 +20,8 @@ type Props = {
 
 const Header = ({ user }: Props) => {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loggedUser } = useSelector((state: RootState) => state.users);
 
   const createPostHandler = () => {
     dispatch(setPostManager({ show: true, postId: '' }));
@@ -29,7 +32,7 @@ const Header = ({ user }: Props) => {
       <nav>
         <img src={logo} alt="logo image" />
         <ul>
-          <li>
+          <li onClick={() => navigate('/')}>
             <div className={classes.icon}>
               <FontAwesomeIcon icon={faHouse} />
             </div>
@@ -53,7 +56,7 @@ const Header = ({ user }: Props) => {
             </div>
             <span>Author</span>
           </li>
-          <li>
+          <li onClick={() => navigate('/' + loggedUser.name)}>
             <div className={classes.icon}>
               <FontAwesomeIcon icon={faUser} />
             </div>
