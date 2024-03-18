@@ -30,6 +30,7 @@ function PostModal() {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (value.trim().length < 1) return;
 
     const req: RequestApi = {

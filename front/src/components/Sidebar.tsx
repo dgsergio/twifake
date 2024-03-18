@@ -6,7 +6,7 @@ import {
 
 import classes from './Sidebar.module.css';
 import TopSidebarSection from './sections/TopSidebarSection';
-import FollowSidebarSection from './sections/FollowSidebarSection';
+import LatestUsersSection from './sections/LatestUsersSection';
 
 function Sidebar() {
   return (
@@ -24,7 +24,7 @@ function Sidebar() {
         />
       </div>
       <TopSidebarSection />
-      <FollowSidebarSection />
+      <LatestUsersSection />
     </aside>
   );
 }

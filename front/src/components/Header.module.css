@@ -37,3 +37,7 @@
 .header button {
   width: 100%;
 }
+
+.logo {
+  cursor: pointer;
+}

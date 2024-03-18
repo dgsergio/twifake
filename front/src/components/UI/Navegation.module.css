@@ -1,0 +1,12 @@
+.navegation {
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  height: 0.4rem;
+  margin-bottom: -0.4rem;
+  border-radius: 2rem;
+  width: 100%;
+  background-color: var(--active-color);
+}

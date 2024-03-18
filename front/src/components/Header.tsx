@@ -30,7 +30,12 @@ const Header = ({ user }: Props) => {
   return (
     <header className={classes.header}>
       <nav>
-        <img src={logo} alt="logo image" />
+        <img
+          className={classes.logo}
+          src={logo}
+          alt="logo image"
+          onClick={() => navigate('/')}
+        />
         <ul>
           <li onClick={() => navigate('/')}>
             <div className={classes.icon}>
@@ -50,7 +55,7 @@ const Header = ({ user }: Props) => {
             </div>
             <span>Community</span>
           </li>
-          <li>
+          <li onClick={() => navigate('/sergio')}>
             <div className={classes.icon}>
               <img src={logo} alt="twifake icon" />
             </div>

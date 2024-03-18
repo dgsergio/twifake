@@ -106,6 +106,7 @@ export const submitPost = (req: RequestApi) => {
           Authorization: `Bearer ${token}`,
         },
       });
+
       if (!response.ok) throw new Error('Something went wrong');
 
       const data = await response.json();

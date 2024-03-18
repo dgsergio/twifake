@@ -3,7 +3,7 @@ import Member from '../Member';
 import classes from './SidebarSections.module.css';
 import { RootState } from '../../store';
 
-const FollowSidebarSection = () => {
+const LatestUsersSection = () => {
   const users = useSelector((state: RootState) => state.users.users);
   const newUsers = [...users].reverse().slice(0, 3);
 
@@ -19,4 +19,4 @@ const FollowSidebarSection = () => {
   );
 };
 
-export default FollowSidebarSection;
+export default LatestUsersSection;
