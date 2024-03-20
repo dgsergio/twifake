@@ -2,26 +2,6 @@
   position: relative;
 }
 
-button.user-btn {
-  display: flex;
-  justify-content: space-between;
-  background-color: transparent;
-  font-weight: normal;
-  text-align: left;
-  border-radius: 5rem;
-  padding: 1rem;
-  color: var(--white-color);
-  transition: background 200ms linear;
-}
-
-button.user-btn:hover {
-  background-color: #f7f9f91a;
-}
-
-button.user-btn:active {
-  background-color: #f7f9f93b;
-}
-
 .user-option {
   display: flex;
   flex-direction: column;
@@ -31,4 +11,12 @@ button.user-btn:active {
 
 .user-option svg {
   width: 90%;
+}
+
+.user-btn {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  gap: 1rem;
+  width: 96%;
 }

@@ -13,6 +13,8 @@ import { AppDispatch, RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPostManager } from '../store/postsSlice';
 import { useNavigate } from 'react-router-dom';
+import ButtonSecondary from './UI/ButtonSecondary';
+import ButtonPrimary from './UI/ButtonPrimary';
 
 type Props = {
   user: User;
@@ -29,47 +31,49 @@ const Header = ({ user }: Props) => {
 
   return (
     <header className={classes.header}>
-      <nav>
-        <img
-          className={classes.logo}
-          src={logo}
-          alt="logo image"
-          onClick={() => navigate('/')}
-        />
-        <ul>
-          <li onClick={() => navigate('/')}>
+      <div>
+        <ButtonSecondary className={classes.logo} onClick={() => navigate('/')}>
+          <img src={logo} alt="logo image" />
+        </ButtonSecondary>
+        <nav>
+          <ButtonSecondary onClick={() => navigate('/')}>
             <div className={classes.icon}>
               <FontAwesomeIcon icon={faHouse} />
             </div>
             <span>Home</span>
-          </li>
-          <li>
+          </ButtonSecondary>
+          <ButtonSecondary onClick={() => {}}>
             <div className={classes.icon}>
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </div>
             <span>Explore</span>
-          </li>
-          <li>
+          </ButtonSecondary>
+          <ButtonSecondary onClick={() => {}}>
             <div className={classes.icon}>
               <FontAwesomeIcon icon={faUserGroup} />
             </div>
             <span>Community</span>
-          </li>
-          <li onClick={() => navigate('/sergio')}>
+          </ButtonSecondary>
+          <ButtonSecondary onClick={() => navigate('/sergio')}>
             <div className={classes.icon}>
               <img src={logo} alt="twifake icon" />
             </div>
             <span>Author</span>
-          </li>
-          <li onClick={() => navigate('/' + loggedUser.name)}>
+          </ButtonSecondary>
+          <ButtonSecondary onClick={() => navigate('/' + loggedUser.name)}>
             <div className={classes.icon}>
               <FontAwesomeIcon icon={faUser} />
             </div>
             <span>Profile</span>
-          </li>
-        </ul>
-        <button onClick={createPostHandler}>Post</button>
-      </nav>
+          </ButtonSecondary>
+        </nav>
+        <ButtonPrimary
+          className={classes['post-btn']}
+          onClick={createPostHandler}
+        >
+          Post
+        </ButtonPrimary>
+      </div>
       <UserMenu user={user} />
     </header>
   );

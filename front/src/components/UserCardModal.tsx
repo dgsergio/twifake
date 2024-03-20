@@ -21,13 +21,18 @@ function UserCardModal({
     navigator('/signin');
   };
 
+  const accountHandler = () => {
+    navigator('/' + user.name);
+    onToggleUserCard();
+  };
+
   return (
     <ModalSmall onClick={onToggleUserCard} className={classes['user-card']}>
       <div className={classes['user-card-header']}>
         <UserDetail user={user} />
       </div>
       <div className={classes['user-card-body']}>
-        <button>Manage your account</button>
+        <button onClick={accountHandler}>Manage your account</button>
         <button onClick={logoutHandler}>Log out</button>
       </div>
     </ModalSmall>

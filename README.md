@@ -8,6 +8,9 @@ Replica de la red social twitter utiliznado stack MERN
 - [x] ability to edit
 - [x] top main fix
 - [x] Make user profile
+- [x] Highlight current "for you or your post"
+- [x] hover effect on header bottons
+- [x] hover light blue bottons opacity
 - [ ] scroll to top react router?
 - [ ] Back documentation
 - [ ] Responsive
@@ -15,10 +18,8 @@ Replica de la red social twitter utiliznado stack MERN
 - [ ] add share post
 - [ ] light/ dark mode
 - [ ] signinmodal & signupmodal too similar, maybe join in one
-- [ ] Who to folow should be last registered users linking their profil
+- [ ] Who to follow should be last registered users linking their profil
 - [ ] not showing error on signup when connect to back fix
 - [ ] find a way to activate account by email
-- [ ] Highlight current "for you or your post"
-- [ ] hover effect on header bottons
-- [ ] hover light blue bottons opacity
 - [ ] en 1 dia desloguear porque expira el token
+- [x] bottonseccondary on header

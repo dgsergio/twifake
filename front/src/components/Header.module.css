@@ -1,43 +1,46 @@
 .header {
   display: flex;
+  position: fixed;
   flex-direction: column;
   justify-content: space-between;
-  position: fixed;
+  height: 98vh;
   min-width: 22.7rem;
-  padding-right: 2rem;
-  margin-top: 1.5rem;
-  height: 94vh;
 }
+
 .header img {
   width: 2rem;
 }
 
 .icon {
-  width: 4rem;
+  width: 1.7rem;
 }
 
 .icon img {
   width: 1.6rem;
-  margin-top: 0.2rem;
 }
 
-.header ul {
-  margin: 1.4rem auto;
-  padding: 0;
+.header nav {
+  margin-bottom: 1rem;
 }
 
-.header li {
+.header nav svg {
+  height: auto;
+  width: 2rem;
+}
+
+.header nav button {
   display: flex;
   align-items: center;
-  list-style: none;
-  padding: 1.1rem 0;
-  cursor: pointer;
+  gap: 2rem;
+  font-size: 1.6rem;
+  padding: 1.2rem 2.1rem 1.2rem 1.2rem;
 }
 
-.header button {
-  width: 100%;
+button.post-btn {
+  padding: 1.5rem 8.5rem;
 }
 
 .logo {
-  cursor: pointer;
+  margin: 0.5rem 0;
+  border-radius: 50%;
 }

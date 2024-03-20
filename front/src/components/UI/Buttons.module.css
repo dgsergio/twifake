@@ -1,0 +1,30 @@
+.primary {
+  background-color: var(--active-color);
+  font-weight: bold;
+  border-radius: 5rem;
+  padding: 0.9rem 1.6rem;
+  color: var(--white-color);
+  opacity: 1;
+  transition: opacity 200ms linear;
+}
+
+.primary:hover {
+  opacity: 0.9;
+}
+
+.secondary {
+  background-color: transparent;
+  font-weight: normal;
+  border-radius: 5rem;
+  padding: 1rem;
+  color: var(--white-color);
+  transition: background 200ms linear;
+}
+
+.secondary:hover {
+  background-color: #f7f9f91a;
+}
+
+.secondary.user-btn:active {
+  background-color: #f7f9f93b;
+}

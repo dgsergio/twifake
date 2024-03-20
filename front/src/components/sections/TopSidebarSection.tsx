@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classes from './SidebarSections.module.css';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import ButtonPrimary from '../UI/ButtonPrimary';
 
 const TopSidebarSection = () => {
   return (
@@ -11,12 +12,13 @@ const TopSidebarSection = () => {
         demonstrating and practicing the author's skills.
       </p>
       <p>Visit Pixel40's website to view the full portfolio. </p>
-      <button>
-        <a href="https://pixel40.com.ar" target="_blank">
-          <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Visit full
-          portfolio
-        </a>
-      </button>
+      <ButtonPrimary
+        onClick={() =>
+          window.open('https://pixel40.com.ar/portfolio', '_blank')
+        }
+      >
+        <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Visit full portfolio
+      </ButtonPrimary>
     </section>
   );
 };

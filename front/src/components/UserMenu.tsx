@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UserCardModal from './UserCardModal';
 import { useState } from 'react';
 import { User } from '../store/usersSlice';
+import ButtonSecondary from './UI/ButtonSecondary';
 
 function UserMenu({ user }: { user: User }) {
   const [showUserCard, setShowUserCard] = useState<boolean>(false);
@@ -18,12 +19,15 @@ function UserMenu({ user }: { user: User }) {
       {showUserCard && (
         <UserCardModal user={user} onToggleUserCard={showUserCardHandler} />
       )}
-      <button className={classes['user-btn']} onClick={showUserCardHandler}>
+      <ButtonSecondary
+        className={classes['user-btn']}
+        onClick={showUserCardHandler}
+      >
         <UserDetail user={user} />
         <div className={classes['user-option']}>
           <FontAwesomeIcon icon={faEllipsis} />
         </div>
-      </button>
+      </ButtonSecondary>
     </div>
   );
 }
