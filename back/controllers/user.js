@@ -4,7 +4,7 @@ const User = require('../models/User');
 const { Unauthorize } = require('../errors');
 
 const signup = async (req, res) => {
-  const user = await User.create(req.body);
+  const user = await User.create({ ...req.body, displayName: req.body.name });
   const token = user.createToken(user._id);
   res.status(StatusCodes.OK).json({
     user: { name: user.name, _id: user._id },
@@ -32,6 +32,7 @@ const getAllUsers = async (req, res) => {
   for (const i of users) {
     userInfo.push({
       name: i.name,
+      displayName: i.displayName,
       email: i.email,
       profileUrl: i.profileUrl,
       _id: i._id,
@@ -47,6 +48,7 @@ const getUserById = async (req, res) => {
   const userInfo = {
     _id: user._id,
     name: user.name,
+    displayName: user.displayName,
     email: user.email,
     profileUrl: user.profileUrl,
   };

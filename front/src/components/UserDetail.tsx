@@ -7,8 +7,8 @@ const UserDetail = ({ user }: { user: User }) => {
       <div className={classes['user-content']}>
         <img src={user.profileUrl} alt="user picture" />
         <div className={classes['user-text']}>
-          <p>{user.name}</p>
-          <p>{user.email}</p>
+          <p>{user.displayName}</p>
+          <p>@{user.name}</p>
         </div>
       </div>
     </>

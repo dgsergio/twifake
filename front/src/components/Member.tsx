@@ -2,19 +2,21 @@ import { useNavigate } from 'react-router-dom';
 import { User } from '../store/usersSlice';
 import classes from './Member.module.css';
 import UserDetail from './UserDetail';
+import ButtonSecondary from './UI/ButtonSecondary';
 
 const Member = ({ user }: { user: User }) => {
   const navigate = useNavigate();
 
   return (
-    <div className={classes.container}>
+    <ButtonSecondary
+      onClick={() => navigate('/' + user.name)}
+      className={classes.container}
+    >
       <div className={classes.member}>
         <UserDetail user={user} />
       </div>
-      <div>
-        <button onClick={() => navigate('/' + user.name)}>Profil</button>
-      </div>
-    </div>
+      <div className={classes.profile}>Profil</div>
+    </ButtonSecondary>
   );
 };
 

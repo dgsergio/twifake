@@ -30,9 +30,9 @@ function Post({ post, user, currentUserID }: Props) {
           <div className={classes.container}>
             <div className={classes.title}>
               <p>
-                {user.name}{' '}
+                {user.displayName}{' '}
                 <span>
-                  {user.email} - {timePassed(post.createdAt)}
+                  @{user.name} · {timePassed(post.createdAt)}
                 </span>
               </p>
             </div>

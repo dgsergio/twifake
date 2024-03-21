@@ -9,6 +9,7 @@ export type User = {
   name: string;
   email: string;
   profileUrl: string;
+  displayName: string;
 };
 
 export interface UserState {
@@ -21,6 +22,7 @@ const initialLoggedUserState: User = {
   _id: '...',
   email: '...',
   name: '...',
+  displayName: '...',
   profileUrl: noAvatar,
 };
 
@@ -131,6 +133,7 @@ export const signApi = (req: SignReq) => {
         const newUser: User = {
           _id: data.user._id,
           name: req.body.name,
+          displayName: req.body.name,
           email: req.body.email,
           profileUrl: req.body.profileUrl || noAvatar,
         };

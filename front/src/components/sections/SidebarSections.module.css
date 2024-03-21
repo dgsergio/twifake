@@ -1,12 +1,12 @@
 .section {
   background-color: #1e2732;
-  padding: 0.8rem 1.5rem;
-  margin: 1.7rem 0;
+  padding: 0.8rem 0;
+  margin: 1.9rem 0;
   border-radius: 1.5rem;
 }
 
 .section h3 {
-  margin: 0;
+  margin: 0.2rem 0 1.2rem;
   font-size: 1.8rem;
 }
 
@@ -18,11 +18,32 @@
 
 .section button {
   font-size: 1.3rem;
+  padding: 1.1rem 1.5rem;
 }
 
 .follow {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  margin: 2rem 0;
+}
+
+button.more {
+  width: 100%;
+  text-align: left;
+  border-radius: 0;
+  color: #1d8dda;
+  padding: 1.6rem 1rem;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+}
+
+section#latest-members {
+  padding-bottom: 0;
+}
+
+.content {
+  padding: 0 1.5rem 0.3rem 1.5rem;
+}
+
+h3.latest {
+  padding: 0 1.5rem;
 }

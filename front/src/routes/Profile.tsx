@@ -2,7 +2,7 @@ import classes from './Profile.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getPosts } from '../store/postsSlice';
 import HeaderProfile from '../components/profile/HeaderProfile';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
@@ -11,9 +11,12 @@ import MainNav from '../components/UI/MainNav';
 import { Item } from '../components/MainHeader';
 import Posts from '../components/Posts';
 import Navegation from '../components/UI/Navegation';
+import UserOptionModal from '../components/UserOptionModal';
 
 function Profile() {
-  const { users } = useSelector((state: RootState) => state.users);
+  const [showEdit, setShowEdit] = useState<boolean>(false);
+  const [showOpt, setShowOpt] = useState<boolean>(false);
+  const { users, loggedUser } = useSelector((state: RootState) => state.users);
   const { posts } = useSelector((state: RootState) => state.posts);
   const { userName } = useParams();
   const dispatch: AppDispatch = useDispatch();
@@ -21,19 +24,32 @@ function Profile() {
   const postsSelected = posts.filter(
     (post) => post.createdBy === selectedUser?._id
   );
+
   useEffect(() => {
     dispatch(getPosts('http://localhost:3000/api/v1/posts'));
   }, []);
 
-  const SelectedUserName = selectedUser
-    ? userName![0].toUpperCase() + userName!.slice(1)
+  const isCurrentUser = selectedUser
+    ? loggedUser._id === selectedUser._id
+    : false;
+
+  const SelectedDisplayName = selectedUser
+    ? selectedUser.displayName![0].toUpperCase() +
+      selectedUser.displayName!.slice(1)
     : 'Profile';
 
   const items: Item[] = [{ name: 'Posts', link: '#', isActive: true }];
 
+  const cancelHandler = () => {
+    setShowEdit(false);
+  };
+
   return (
     <>
-      <HeaderProfile userName={SelectedUserName} nPost={postsSelected.length} />
+      <HeaderProfile
+        userName={SelectedDisplayName}
+        nPost={postsSelected.length}
+      />
       <div className={classes.content}>
         <div className={classes.banner}>
           <img src={selectedUser?.profileUrl} alt="profile banner" />
@@ -43,15 +59,40 @@ function Profile() {
             <div className={classes.profile}>
               <img src={selectedUser?.profileUrl} alt="profile image" />
             </div>
-            <div>
-              <button>
-                <FontAwesomeIcon icon={faEllipsis} />
-              </button>
-            </div>
+            {isCurrentUser && (
+              <div className={classes['btn-opt']}>
+                {showOpt && (
+                  <UserOptionModal
+                    onSetShowOpt={setShowOpt}
+                    onSetShowEdit={setShowEdit}
+                  />
+                )}
+                <button onClick={() => setShowOpt(true)}>
+                  <FontAwesomeIcon icon={faEllipsis} />
+                </button>
+              </div>
+            )}
           </div>
           <div className={classes.column}>
-            <h3>{SelectedUserName}</h3>
-            {selectedUser && <p>{selectedUser.email}</p>}
+            {showEdit ? (
+              <form className={classes.form}>
+                <input type="text" defaultValue={SelectedDisplayName} />
+                <div>
+                  <button type="submit">Update</button>
+                  <button
+                    type="button"
+                    className={classes.cancel}
+                    onClick={cancelHandler}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <h3>{SelectedDisplayName}</h3>
+            )}
+            {selectedUser && isCurrentUser && <p>{selectedUser.email}</p>}
+            {selectedUser && <p>@{selectedUser.name}</p>}
           </div>
         </div>
         <MainNav className={classes['nav-Posts']}>

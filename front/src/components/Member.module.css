@@ -17,12 +17,23 @@
   border-radius: 50%;
 }
 
-.container button {
-  color: #0f1419;
-  background-color: #eff3f4;
-}
-
-.container {
+button.container {
+  border-radius: 0;
   display: flex;
   justify-content: space-between;
+  text-align: left;
+}
+
+.profile {
+  padding: 0.8rem 2rem;
+  color: #0f1419;
+  background-color: #eff3f4;
+  font-weight: bold;
+  border-radius: 5rem;
+  opacity: 1;
+  transition: opacity 100ms linear;
+}
+
+.profile:hover {
+  opacity: 0.9;
 }

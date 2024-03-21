@@ -10,6 +10,11 @@ const userSchema = new Schema({
     maxlength: 25,
     unique: true,
   },
+  displayName: {
+    type: String,
+    minlength: 1,
+    maxlength: 25,
+  },
   profileUrl: {
     type: String,
     match: [/^(ftp|http|https):\/\/[^ "]+$/, 'Please provide a valid URL'],
