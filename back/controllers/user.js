@@ -1,6 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 require('express-async-errors');
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 const { Unauthorize } = require('../errors');
 
 const signup = async (req, res) => {
@@ -55,4 +56,29 @@ const getUserById = async (req, res) => {
   res.status(StatusCodes.OK).json(userInfo);
 };
 
-module.exports = { signup, login, getAllUsers, getUserById };
+const updateUser = async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const { id } = jwt.verify(token, process.env.JWT_SECRET);
+  const user = await User.findOneAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(StatusCodes.CREATED).json({ id: user._id });
+};
+
+const deleteUser = async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const { id } = jwt.verify(token, process.env.JWT_SECRET);
+
+  const user = await User.findOneAndDelete({ _id: id });
+  res.status(StatusCodes.CREATED).json({ id: user._id });
+};
+
+module.exports = {
+  signup,
+  login,
+  getAllUsers,
+  getUserById,
+  updateUser,
+  deleteUser,
+};

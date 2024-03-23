@@ -40,7 +40,12 @@ function PostOptionModal({ onToogleShowPostOption, postID, postDate }: Props) {
   return (
     <ModalSmall onClick={onToogleShowPostOption} className={classes.option}>
       {showConfirmation && (
-        <ConfirmationModal onHiddeModal={hiddeModal} onDelete={deleteHandler} />
+        <ConfirmationModal
+          onHiddeModal={hiddeModal}
+          onDelete={deleteHandler}
+          msg="This can’t be undone, the post will be removed from your profile and the
+        main timeline."
+        />
       )}
       <button
         className={classes.danger}

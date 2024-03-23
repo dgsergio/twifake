@@ -1,13 +1,9 @@
 import classes from './LoadingPosts.module.css';
+import Spinner from './UI/Spinner';
 
 function LoadingPosts({ msg = 'loading' }: { msg: string }) {
   let loaderContainer = <p>{msg}</p>;
-  if (msg.toLowerCase() === 'loading')
-    loaderContainer = (
-      <div className={classes['loader-container']}>
-        <div className={classes.loader}></div>
-      </div>
-    );
+  if (msg.toLowerCase() === 'loading') loaderContainer = <Spinner />;
 
   return (
     <>

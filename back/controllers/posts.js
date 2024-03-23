@@ -34,6 +34,14 @@ const deletePost = async (req, res) => {
   res.status(StatusCodes.OK).json({ post });
 };
 
+const deleteAllUserPost = async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const { id } = jwt.verify(token, process.env.JWT_SECRET);
+  const post = await Post.deleteMany({ createdBy: id });
+  if (!post) throw new NotFoundError('Posts does not exist');
+  res.status(StatusCodes.OK).json({ post });
+};
+
 const updatePost = async (req, res) => {
   const { id } = req.params;
   const token = req.headers.authorization.split(' ')[1];
@@ -55,4 +63,5 @@ module.exports = {
   createPost,
   deletePost,
   updatePost,
+  deleteAllUserPost,
 };

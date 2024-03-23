@@ -106,6 +106,7 @@ export const submitPost = (req: RequestApi) => {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(response);
 
       if (!response.ok) throw new Error('Something went wrong');
 
@@ -130,6 +131,29 @@ export const submitPost = (req: RequestApi) => {
 };
 
 export const deletePost = (url: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setStatus({ loading: true, error: '' }));
+      let token = localStorage.getItem('token')!.slice(1, -1);
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) throw new Error('Something went wrong');
+
+      const data = await response.json();
+      dispatch(removePost(data.post._id));
+      dispatch(setStatus({ loading: false, error: '' }));
+    } catch (err) {
+      dispatch(setStatus({ loading: false, error: 'Error: ' + err }));
+    }
+  };
+};
+
+export const deleteAllPostsByUser = (url: string) => {
   return async (dispatch: AppDispatch) => {
     try {
       dispatch(setStatus({ loading: true, error: '' }));

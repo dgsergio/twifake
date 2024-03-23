@@ -42,6 +42,19 @@ export const usersSlice = createSlice({
     addUser: (state, action: PayloadAction<User>) => {
       state.users.push(action.payload);
     },
+    deleteUser: (state, action: PayloadAction<string>) => {
+      state.users.filter((user) => user._id !== action.payload);
+    },
+    updateUser: (
+      state,
+      action: PayloadAction<{ id: string; displayName: string }>
+    ) => {
+      state.users.map((user) =>
+        user._id === action.payload.id
+          ? { ...user, displayName: action.payload.displayName }
+          : user
+      );
+    },
     setStatus: (
       state,
       action: PayloadAction<{ loading: boolean; error: string }>
@@ -86,6 +99,8 @@ export const {
   getLoggedUser,
   logout,
   addUser,
+  updateUser,
+  deleteUser,
 } = usersSlice.actions;
 
 type RequestApi = {
@@ -141,6 +156,67 @@ export const signApi = (req: SignReq) => {
       }
 
       dispatch(setAuthUser({ id: data.user._id, userName: req.body.name }));
+      dispatch(setStatus({ loading: false, error: '' }));
+    } catch (err) {
+      const { message } = err as typeof err & {
+        message: string;
+      };
+      dispatch(setStatus({ loading: false, error: message }));
+    }
+  };
+};
+
+export type UpdateReq = {
+  url: string;
+  body: { displayName: string };
+};
+
+export const updateApi = (req: UpdateReq) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(setStatus({ loading: true, error: '' }));
+    try {
+      let token = localStorage.getItem('token')!.slice(1, -1);
+      const response = await fetch(req.url, {
+        method: 'PATCH',
+        body: JSON.stringify(req.body),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error('Something is not ok');
+
+      const data = await response.json();
+      dispatch(updateUser({ id: data._id, displayName: req.body.displayName }));
+
+      dispatch(setStatus({ loading: false, error: '' }));
+    } catch (err) {
+      const { message } = err as typeof err & {
+        message: string;
+      };
+      dispatch(setStatus({ loading: false, error: message }));
+    }
+  };
+};
+
+export const deleteApi = (url: string) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(setStatus({ loading: true, error: '' }));
+    try {
+      let token = localStorage.getItem('token')!.slice(1, -1);
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error('Something is not ok');
+
+      const data = await response.json();
+      dispatch(deleteUser(data._id));
+
       dispatch(setStatus({ loading: false, error: '' }));
     } catch (err) {
       const { message } = err as typeof err & {

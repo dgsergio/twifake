@@ -12,10 +12,12 @@ import { Item } from '../components/MainHeader';
 import Posts from '../components/Posts';
 import Navegation from '../components/UI/Navegation';
 import UserOptionModal from '../components/UserOptionModal';
+import { UpdateReq, updateApi } from '../store/usersSlice';
 
 function Profile() {
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [showOpt, setShowOpt] = useState<boolean>(false);
+
   const { users, loggedUser } = useSelector((state: RootState) => state.users);
   const { posts } = useSelector((state: RootState) => state.posts);
   const { userName } = useParams();
@@ -33,10 +35,12 @@ function Profile() {
     ? loggedUser._id === selectedUser._id
     : false;
 
-  const SelectedDisplayName = selectedUser
-    ? selectedUser.displayName![0].toUpperCase() +
-      selectedUser.displayName!.slice(1)
-    : 'Profile';
+  const [selectedDisplayName, setSelectedDisplayName] = useState<string>(
+    selectedUser
+      ? selectedUser.displayName![0].toUpperCase() +
+          selectedUser.displayName!.slice(1)
+      : 'Profile'
+  );
 
   const items: Item[] = [{ name: 'Posts', link: '#', isActive: true }];
 
@@ -44,10 +48,22 @@ function Profile() {
     setShowEdit(false);
   };
 
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const target = e.target as HTMLFormElement;
+    const req: UpdateReq = {
+      url: 'http://localhost:3000/api/v1/update/user',
+      body: { displayName: target.display.value },
+    };
+    dispatch(updateApi(req));
+    setShowEdit(false);
+    setSelectedDisplayName(req.body.displayName);
+  };
+
   return (
     <>
       <HeaderProfile
-        userName={SelectedDisplayName}
+        userName={selectedDisplayName}
         nPost={postsSelected.length}
       />
       <div className={classes.content}>
@@ -75,8 +91,12 @@ function Profile() {
           </div>
           <div className={classes.column}>
             {showEdit ? (
-              <form className={classes.form}>
-                <input type="text" defaultValue={SelectedDisplayName} />
+              <form onSubmit={submitHandler} className={classes.form}>
+                <input
+                  type="text"
+                  name="display"
+                  defaultValue={selectedDisplayName}
+                />
                 <div>
                   <button type="submit">Update</button>
                   <button
@@ -89,7 +109,7 @@ function Profile() {
                 </div>
               </form>
             ) : (
-              <h3>{SelectedDisplayName}</h3>
+              <h3>{selectedDisplayName}</h3>
             )}
             {selectedUser && isCurrentUser && <p>{selectedUser.email}</p>}
             {selectedUser && <p>@{selectedUser.name}</p>}
