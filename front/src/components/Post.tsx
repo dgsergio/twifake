@@ -49,7 +49,7 @@ function Post({ post, user, currentUserID }: Props) {
               </button>
             )}
           </div>
-          <p>{post.post}</p>
+          <p className={classes.thepost}>{post.post}</p>
         </div>
       </div>
     </>

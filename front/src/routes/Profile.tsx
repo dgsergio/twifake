@@ -12,13 +12,17 @@ import { Item } from '../components/MainHeader';
 import Posts from '../components/Posts';
 import Navegation from '../components/UI/Navegation';
 import UserOptionModal from '../components/UserOptionModal';
-import { UpdateReq, updateApi } from '../store/usersSlice';
+import UpdateProfile from '../components/profile/UpdateProfile';
+import ProfileNotFound from './ProfileNotFound';
+import noAvatar from '../assets/no-avatar.jpg';
 
 function Profile() {
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [showOpt, setShowOpt] = useState<boolean>(false);
 
-  const { users, loggedUser } = useSelector((state: RootState) => state.users);
+  const { users, loggedUser, loadingStatus } = useSelector(
+    (state: RootState) => state.users
+  );
   const { posts } = useSelector((state: RootState) => state.posts);
   const { userName } = useParams();
   const dispatch: AppDispatch = useDispatch();
@@ -35,45 +39,28 @@ function Profile() {
     ? loggedUser._id === selectedUser._id
     : false;
 
-  const [selectedDisplayName, setSelectedDisplayName] = useState<string>(
-    selectedUser
-      ? selectedUser.displayName![0].toUpperCase() +
-          selectedUser.displayName!.slice(1)
-      : 'Profile'
-  );
-
   const items: Item[] = [{ name: 'Posts', link: '#', isActive: true }];
 
-  const cancelHandler = () => {
-    setShowEdit(false);
-  };
-
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const target = e.target as HTMLFormElement;
-    const req: UpdateReq = {
-      url: 'http://localhost:3000/api/v1/update/user',
-      body: { displayName: target.display.value },
-    };
-    dispatch(updateApi(req));
-    setShowEdit(false);
-    setSelectedDisplayName(req.body.displayName);
-  };
+  if (!selectedUser) return <ProfileNotFound userName={userName || ''} />;
 
   return (
     <>
       <HeaderProfile
-        userName={selectedDisplayName}
+        userName={selectedUser.displayName}
         nPost={postsSelected.length}
       />
       <div className={classes.content}>
         <div className={classes.banner}>
-          <img src={selectedUser?.profileUrl} alt="profile banner" />
+          <img src={selectedUser.profileUrl || noAvatar} alt="profile banner" />
         </div>
         <div className={classes.body}>
           <div className={classes.row}>
             <div className={classes.profile}>
-              <img src={selectedUser?.profileUrl} alt="profile image" />
+              <img
+                src={selectedUser.profileUrl || noAvatar}
+                className={classes['profile-img']}
+                alt="profile image"
+              />
             </div>
             {isCurrentUser && (
               <div className={classes['btn-opt']}>
@@ -91,25 +78,15 @@ function Profile() {
           </div>
           <div className={classes.column}>
             {showEdit ? (
-              <form onSubmit={submitHandler} className={classes.form}>
-                <input
-                  type="text"
-                  name="display"
-                  defaultValue={selectedDisplayName}
-                />
-                <div>
-                  <button type="submit">Update</button>
-                  <button
-                    type="button"
-                    className={classes.cancel}
-                    onClick={cancelHandler}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
+              <UpdateProfile
+                displayName={selectedUser.displayName}
+                onSetShowEdit={setShowEdit}
+              />
             ) : (
-              <h3>{selectedDisplayName}</h3>
+              <h3>{selectedUser.displayName}</h3>
+            )}
+            {!loadingStatus.loading && loadingStatus.error !== '' && (
+              <span className={classes.error}>{loadingStatus.error}</span>
             )}
             {selectedUser && isCurrentUser && <p>{selectedUser.email}</p>}
             {selectedUser && <p>@{selectedUser.name}</p>}

@@ -54,6 +54,7 @@ export const usersSlice = createSlice({
           ? { ...user, displayName: action.payload.displayName }
           : user
       );
+      state.loggedUser.displayName = action.payload.displayName;
     },
     setStatus: (
       state,

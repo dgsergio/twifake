@@ -17,7 +17,7 @@ const Root = () => {
 
   useEffect(() => {
     dispatch(getLoggedUser());
-  }, [users]);
+  }, [users, loggedUser]);
 
   if (users.length === 0) return <Loading />;
   return (

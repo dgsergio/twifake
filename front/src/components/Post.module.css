@@ -50,3 +50,8 @@
 .container button:hover {
   opacity: 1;
 }
+
+.thepost {
+  margin: 0.5rem 0 1.5rem;
+  font-size: 1.44rem;
+}

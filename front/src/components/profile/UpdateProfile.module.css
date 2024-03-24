@@ -1,0 +1,49 @@
+.form {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form input {
+  padding: 0.8rem;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: #f7f9f91a;
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 0.5rem;
+}
+
+.form button {
+  background-color: #eff3f4;
+  color: #0f1419;
+  font-size: 1.3rem;
+  margin: 0 auto;
+  padding: 0.8rem 1.5rem;
+  opacity: 1;
+  transition: opacity 100ms linear;
+}
+
+.form button:hover {
+  opacity: 0.8;
+}
+
+.form-wrapper {
+  display: flex;
+}
+
+.form-btns {
+  display: flex;
+}
+
+button.cancel {
+  background-color: transparent;
+  color: #eff3f4;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+}
