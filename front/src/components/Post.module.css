@@ -71,6 +71,16 @@
 
 .like button {
   color: #f91880;
+  animation: zoomin 400ms ease-out;
+}
+
+@keyframes zoomin {
+  0% {
+    transform: scale(1.6);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .nolike {

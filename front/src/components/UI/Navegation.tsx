@@ -4,12 +4,11 @@ import ButtonSecondary from './ButtonSecondary';
 
 type Props = {
   item: Item;
-  onClick: () => void;
 };
 
-function Navegation({ item, onClick }: Props) {
+function Navegation({ item }: Props) {
   return (
-    <ButtonSecondary className={classes.navegation} onClick={onClick}>
+    <ButtonSecondary className={classes.navegation} onClick={item.onClick}>
       <span>{item.name}</span>
       {item.isActive && <div className={classes.line}></div>}
     </ButtonSecondary>

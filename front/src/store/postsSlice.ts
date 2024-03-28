@@ -12,12 +12,14 @@ export type PostItem = {
 
 export interface PostState {
   posts: PostItem[];
+  searchedPosts: PostItem[] | null;
   postManager: { show: boolean; postId: string };
   loadingStatus: { loading: boolean; error: string };
 }
 
 const initialState: PostState = {
   posts: [],
+  searchedPosts: null,
   postManager: { show: false, postId: '' },
   loadingStatus: { loading: false, error: '' },
 };
@@ -26,6 +28,16 @@ export const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
+    clearSearchPosts: (state) => {
+      state.searchedPosts = null;
+    },
+    searchPosts: (state, action: PayloadAction<string>) => {
+      state.searchedPosts = state.posts.filter((post) => {
+        const postLowerCase = post.post.toLowerCase();
+        const queryLowerCase = action.payload.toLowerCase();
+        return postLowerCase.includes(queryLowerCase);
+      });
+    },
     populate: (state, action: PayloadAction<PostItem[]>) => {
       state.posts = action.payload;
     },
@@ -61,6 +73,8 @@ export const postsSlice = createSlice({
 });
 
 export const {
+  clearSearchPosts,
+  searchPosts,
   populate,
   setStatus,
   addPost,

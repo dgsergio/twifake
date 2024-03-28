@@ -11,7 +11,9 @@ import { setShowMembers } from '../store/usersSlice';
 
 const Home = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { posts } = useSelector((state: RootState) => state.posts);
+  const { posts, searchedPosts } = useSelector(
+    (state: RootState) => state.posts
+  );
   const { showMembers } = useSelector((state: RootState) => state.users);
 
   useEffect(() => {
@@ -37,7 +39,10 @@ const Home = () => {
       {showMembers ? (
         <Members />
       ) : (
-        <Posts posts={posts} className={classes.body} />
+        <Posts
+          posts={searchedPosts ? searchedPosts : posts}
+          className={classes.body}
+        />
       )}
     </>
   );

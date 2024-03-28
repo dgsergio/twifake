@@ -39,7 +39,7 @@ function Profile() {
     ? loggedUser._id === selectedUser._id
     : false;
 
-  const items: Item[] = [{ name: 'Posts', link: '#', isActive: true }];
+  const items: Item[] = [{ name: 'Posts', isActive: true, onClick: () => {} }];
 
   if (!selectedUser) return <ProfileNotFound userName={userName || ''} />;
 
@@ -94,7 +94,7 @@ function Profile() {
         </div>
         <MainNav className={classes['nav-Posts']}>
           {items.map((item) => (
-            <Navegation item={item} key={item.name} />
+            <Navegation key={item.name} item={item} />
           ))}
         </MainNav>
         <Posts posts={postsSelected} />

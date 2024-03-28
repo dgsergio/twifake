@@ -3,9 +3,10 @@ import logo from '../assets/logo-white.png';
 import classes from './Signin.module.css';
 import SigninModal from './SigninModal';
 import SignupModal from './SignupModal';
-import { getUsers } from '../store/usersSlice';
+import { getUsers, setShowMembers } from '../store/usersSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
+import { clearSearchPosts } from '../store/postsSlice';
 
 function Signin() {
   const [showSignin, setShowSignin] = useState<boolean>(false);
@@ -22,6 +23,8 @@ function Signin() {
   ];
 
   useEffect(() => {
+    dispatch(clearSearchPosts());
+    dispatch(setShowMembers(false));
     dispatch(getUsers({ url: 'http://localhost:3000/api/v1/users' }));
   }, []);
 

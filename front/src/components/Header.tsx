@@ -2,7 +2,6 @@ import logo from '../assets/logo-white.png';
 import classes from './Header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faMagnifyingGlass,
   faHouse,
   faUser,
   faUserGroup,
@@ -47,12 +46,6 @@ const Header = ({ user }: Props) => {
               <FontAwesomeIcon icon={faHouse} />
             </div>
             <span>Home</span>
-          </ButtonSecondary>
-          <ButtonSecondary onClick={() => {}}>
-            <div className={classes.icon}>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </div>
-            <span>Explore</span>
           </ButtonSecondary>
           <ButtonSecondary onClick={() => dispatch(setShowMembers(true))}>
             <div className={classes.icon}>
