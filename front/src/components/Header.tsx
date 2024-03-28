@@ -8,7 +8,7 @@ import {
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import UserMenu from './UserMenu';
-import { User } from '../store/usersSlice';
+import { User, setShowMembers } from '../store/usersSlice';
 import { AppDispatch, RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPostManager } from '../store/postsSlice';
@@ -29,14 +29,20 @@ const Header = ({ user }: Props) => {
     dispatch(setPostManager({ show: true, postId: '' }));
   };
 
+  const homeHandler = () => {
+    navigate('/');
+    dispatch(setShowMembers(false));
+    window.scrollTo(0, 0);
+  };
+
   return (
     <header className={classes.header}>
       <div>
-        <ButtonSecondary className={classes.logo} onClick={() => navigate('/')}>
+        <ButtonSecondary className={classes.logo} onClick={homeHandler}>
           <img src={logo} alt="logo image" />
         </ButtonSecondary>
         <nav>
-          <ButtonSecondary onClick={() => navigate('/')}>
+          <ButtonSecondary onClick={homeHandler}>
             <div className={classes.icon}>
               <FontAwesomeIcon icon={faHouse} />
             </div>
@@ -48,7 +54,7 @@ const Header = ({ user }: Props) => {
             </div>
             <span>Explore</span>
           </ButtonSecondary>
-          <ButtonSecondary onClick={() => {}}>
+          <ButtonSecondary onClick={() => dispatch(setShowMembers(true))}>
             <div className={classes.icon}>
               <FontAwesomeIcon icon={faUserGroup} />
             </div>

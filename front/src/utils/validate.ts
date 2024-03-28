@@ -20,6 +20,7 @@ export function validateSignup(
   if (name.trim().length === 0) messages.push('username is mandatory');
   else if (name.trim().length > 24) messages.push('username is too long');
   else if (name.trim().length < 3) messages.push('username is too short');
+  else if (name.trim() === 'signin') messages.push('username invalid');
   if (pass.trim().length === 0) messages.push('password is mandatory');
   else if (pass.trim().length < 6) messages.push('password too short');
   else if (pass !== pass2) messages.push('passwords do not match');

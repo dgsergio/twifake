@@ -16,6 +16,7 @@ export interface UserState {
   loggedUser: User;
   users: User[];
   loadingStatus: { loading: boolean; error: string };
+  showMembers: boolean;
 }
 
 const initialLoggedUserState: User = {
@@ -30,12 +31,16 @@ const initialState: UserState = {
   loggedUser: initialLoggedUserState,
   users: [],
   loadingStatus: { loading: false, error: '' },
+  showMembers: false,
 };
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
+    setShowMembers: (state, action: PayloadAction<boolean>) => {
+      state.showMembers = action.payload;
+    },
     populate: (state, action: PayloadAction<User[]>) => {
       state.users = action.payload;
     },
@@ -94,6 +99,7 @@ export const usersSlice = createSlice({
 });
 
 export const {
+  setShowMembers,
   populate,
   setStatus,
   setAuthUser,

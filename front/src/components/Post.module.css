@@ -52,6 +52,46 @@
 }
 
 .thepost {
-  margin: 0.5rem 0 1.5rem;
+  margin: 0.5rem 0;
   font-size: 1.44rem;
+}
+
+.like {
+  display: flex;
+  align-items: center;
+}
+
+.nolike,
+.like button {
+  text-align: left;
+  max-width: fit-content;
+  padding: 0.6rem;
+  margin-left: -0.6rem;
+}
+
+.like button {
+  color: #f91880;
+}
+
+.nolike {
+  opacity: 0.5;
+}
+
+.nolike:hover,
+.like button:hover {
+  opacity: 1;
+  color: #f91880;
+  background-color: rgba(249, 24, 129, 0.12);
+}
+
+.nolike:active,
+.nolike button:active {
+  opacity: 1;
+  color: #f91880;
+  background-color: rgba(249, 24, 129, 0.25);
+}
+
+.like span {
+  color: #f91880;
+  font-size: 1.25rem;
 }

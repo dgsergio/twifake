@@ -4,13 +4,18 @@ import classes from './Member.module.css';
 import UserDetail from './UserDetail';
 import ButtonSecondary from './UI/ButtonSecondary';
 
-const Member = ({ user }: { user: User }) => {
+type Props = { user: User; className?: string };
+
+const Member = ({ user, className }: Props) => {
   const navigate = useNavigate();
+  const allClasses = className
+    ? `${classes.container} ${className}`
+    : classes.container;
 
   return (
     <ButtonSecondary
       onClick={() => navigate('/' + user.name)}
-      className={classes.container}
+      className={allClasses}
     >
       <div className={classes.member}>
         <UserDetail user={user} />
