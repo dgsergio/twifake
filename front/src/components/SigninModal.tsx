@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import Modal from './UI/Modal';
 import { AppDispatch, RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { signApi } from '../store/usersSlice';
+import { setStatus, signApi } from '../store/usersSlice';
 import { useNavigate } from 'react-router-dom';
+import Spinner from './UI/Spinner';
 
 function SigninModal({
   onSetShowSignup,
@@ -30,6 +31,10 @@ function SigninModal({
   const hiddeModal = () => {
     onSetShowSignin(false);
   };
+
+  useEffect(() => {
+    dispatch(setStatus({ ...loadingStatus, error: '' }));
+  }, []);
 
   useEffect(() => {
     if (token && loadingStatus.error === '') navigate('/');
@@ -78,7 +83,16 @@ function SigninModal({
           <form onSubmit={submitHandler}>
             <input type="text" name="username" placeholder="Username" />
             <input type="password" name="password" placeholder="******" />
-            <button>Sign in</button>
+            <button
+              disabled={loadingStatus.loading}
+              className={classes['signin-btn']}
+            >
+              {loadingStatus.loading ? (
+                <Spinner className={classes.spinner} />
+              ) : (
+                'Sign in'
+              )}
+            </button>
           </form>
         </div>
         <div className={classes.footer}>

@@ -1,24 +1,26 @@
 import classes from './SignModal.module.css';
 import { validateSignup } from '../utils/validate';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Modal from './UI/Modal';
 import { AppDispatch, RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { signApi } from '../store/usersSlice';
+import { setStatus, signApi } from '../store/usersSlice';
 import { useNavigate } from 'react-router-dom';
+import Spinner from './UI/Spinner';
 
 function SignupModal({
   onSetShowSignup,
 }: {
   onSetShowSignup: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const loadingStatus = useSelector(
-    (state: RootState) => state.users.loadingStatus
-  );
+  const { loadingStatus } = useSelector((state: RootState) => state.users);
   const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    dispatch(setStatus({ ...loadingStatus, error: '' }));
+  }, []);
 
   useEffect(() => {
     if (token && loadingStatus.error === '') navigate('/');
@@ -26,10 +28,10 @@ function SignupModal({
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setErrorMsg(null);
+      dispatch(setStatus({ ...loadingStatus, error: '' }));
     }, 5000);
     return () => clearTimeout(timeout);
-  }, [errorMsg]);
+  }, [loadingStatus.error]);
 
   const hiddeModal = () => {
     onSetShowSignup(false);
@@ -60,7 +62,7 @@ function SignupModal({
         response[0].slice(0, 1).toLocaleUpperCase() +
         response.join(', ').slice(1) +
         '.';
-      setErrorMsg(fullMsg);
+      dispatch(setStatus({ ...loadingStatus, error: fullMsg }));
       return;
     }
 
@@ -96,13 +98,19 @@ function SignupModal({
               name="profileUrl"
               placeholder="Profile image URL"
             />
-            <button>Sign up</button>
+            <button disabled={loadingStatus.loading}>
+              {loadingStatus.loading ? (
+                <Spinner className={classes.spinner} />
+              ) : (
+                'Sign up'
+              )}
+            </button>
           </form>
         </div>
       </Modal>
-      {(errorMsg || loadingStatus.error !== '') && (
+      {loadingStatus.error && (
         <div className="message">
-          <p className="error">{errorMsg}</p>
+          <p className="error">{loadingStatus.error}</p>
         </div>
       )}
     </>

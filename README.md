@@ -4,9 +4,8 @@ Replica de la red social twitter utiliznado stack MERN
 
 ### To do
 
-- [x] Search function
+- [x] fix user card zindex
+- [x] not showing error on signup when connect to back fix
+- [x] en 1 dia desloguear porque expira el token
 - [ ] Back documentation
 - [ ] Responsive
-- [ ] not showing error on signup when connect to back fix
-- [ ] find a way to activate account by email
-- [ ] en 1 dia desloguear porque expira el token

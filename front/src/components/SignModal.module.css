@@ -54,4 +54,23 @@
 .form button {
   margin-top: 1rem;
   padding: 1.5rem;
+  height: 5rem;
+}
+
+.signin-btn {
+  padding: 1rem;
+  height: 3rem;
+}
+
+.form button:disabled,
+.signin-btn:disabled {
+  cursor: context-menu;
+}
+
+.spinner {
+  transform: scale(0.8);
+}
+
+.signin-btn .spinner {
+  margin-top: -4px;
 }

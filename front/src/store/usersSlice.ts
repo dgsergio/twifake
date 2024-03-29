@@ -146,10 +146,12 @@ export const signApi = (req: SignReq) => {
         },
       });
 
-      if (!response.ok) throw new Error('Something is not ok');
-
       const data = await response.json();
+      if (!response.ok) throw new Error(data.msg || 'Something is not ok');
+
+      const currentTime = new Date().getTime();
       localStorage.setItem('token', JSON.stringify(data.token));
+      localStorage.setItem('tokenTime', JSON.stringify(currentTime));
 
       if (req.body.email) {
         const newUser: User = {

@@ -16,6 +16,19 @@ import Profile from './routes/Profile';
 const checkAuth = (isSigning: boolean) => {
   const token = localStorage.getItem('token');
   if (token && isSigning) return redirect('/');
+
+  if (token && !isSigning) {
+    const tokenTime = localStorage.getItem('tokenTime');
+    const currentDate = new Date().getTime();
+    const prevDate = Number(new Date(Number(tokenTime)));
+    const daysPasted = Math.floor(
+      (currentDate - prevDate) / (1000 * 60 * 60 * 24)
+    );
+    if (daysPasted >= 29) {
+      localStorage.clear();
+      return redirect('/signin');
+    }
+  }
   if (!token && !isSigning) return redirect('/signin');
   return 0;
 };
