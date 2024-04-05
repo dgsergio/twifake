@@ -2,8 +2,14 @@
   display: flex;
   flex-direction: column;
   border-radius: 0;
-  padding: 0.5rem 5rem;
+  padding: 0.5rem 2rem;
   margin-bottom: -0.5rem;
+}
+
+@media (min-width: 590px) {
+  .navegation {
+    padding: 0.5rem 5rem;
+  }
 }
 
 .line {

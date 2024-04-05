@@ -1,6 +1,6 @@
 # TwiFake web app
 
-Replica de la red social twitter utiliznado stack MERN
+Replica de la red social twitter utilizando stack MERN
 
 ### To do
 

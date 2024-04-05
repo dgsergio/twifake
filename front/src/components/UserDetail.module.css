@@ -10,6 +10,11 @@
   border-radius: 50%;
 }
 
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+
 .user-text p {
   margin: 0;
   font-size: 1.4rem;

@@ -36,8 +36,46 @@
   padding: 1.2rem 2.1rem 1.2rem 1.2rem;
 }
 
+.header nav button span {
+  display: none;
+}
+
+@media (min-width: 1300px) {
+  .header nav button span {
+    display: inline;
+  }
+}
+
 button.post-btn {
-  padding: 1.5rem 8.5rem;
+  padding: 1.5rem;
+}
+
+@media (min-width: 1300px) {
+  button.post-btn {
+    padding: 1.5rem 8.5rem;
+  }
+}
+
+button.post-btn p {
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+@media (min-width: 1300px) {
+  button.post-btn p {
+    display: inline;
+  }
+}
+
+button.post-btn svg {
+  display: block;
+}
+
+@media (min-width: 1300px) {
+  button.post-btn svg {
+    display: none;
+  }
 }
 
 .logo {

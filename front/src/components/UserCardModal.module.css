@@ -1,6 +1,13 @@
 .user-card-header {
   border-bottom: 0.1rem solid rgba(255, 255, 255, 0.16);
   padding: 1.2rem;
+  display: none;
+}
+
+@media (min-width: 1300px) {
+  .user-card-header {
+    display: block;
+  }
 }
 
 .user-card-body {
@@ -22,8 +29,16 @@
 }
 
 .user-card {
-  min-width: 26rem;
+  min-width: none;
+  width: 10.5rem;
   position: absolute;
   bottom: 7rem;
   left: -2.2rem;
+}
+
+@media (min-width: 1300px) {
+  .user-card {
+    min-width: 26rem;
+    width: auto;
+  }
 }

@@ -8,7 +8,7 @@ import classes from './Post.module.css';
 import { User } from '../store/usersSlice';
 import { timePassed } from '../utils/utils';
 import PostOptionModal from './PostOptionModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PostItem } from '../store/postsSlice';
 import { useNavigate } from 'react-router-dom';
 import ButtonSecondary from './UI/ButtonSecondary';
@@ -23,6 +23,13 @@ function Post({ post, user, currentUserID }: Props) {
   const navigator = useNavigate();
   const [showPostOption, setShowPostOption] = useState<boolean>(false);
   const [showLike, setShowLike] = useState<boolean>(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowLike(false);
+    }, 1500);
+    return () => clearTimeout(timeout);
+  }, [showLike]);
 
   const toogleShowPostOption = () => {
     setShowPostOption((pV) => !pV);

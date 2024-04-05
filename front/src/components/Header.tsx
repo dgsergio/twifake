@@ -2,6 +2,7 @@ import logo from '../assets/logo-white.png';
 import classes from './Header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faFeatherPointed,
   faHouse,
   faUser,
   faUserGroup,
@@ -70,7 +71,8 @@ const Header = ({ user }: Props) => {
           className={classes['post-btn']}
           onClick={createPostHandler}
         >
-          Post
+          <FontAwesomeIcon icon={faFeatherPointed} />
+          <p>Post</p>
         </ButtonPrimary>
       </div>
       <UserMenu user={user} />

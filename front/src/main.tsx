@@ -21,10 +21,10 @@ const checkAuth = (isSigning: boolean) => {
     const tokenTime = localStorage.getItem('tokenTime');
     const currentDate = new Date().getTime();
     const prevDate = Number(new Date(Number(tokenTime)));
-    const daysPasted = Math.floor(
+    const daysPassed = Math.floor(
       (currentDate - prevDate) / (1000 * 60 * 60 * 24)
     );
-    if (daysPasted >= 29) {
+    if (daysPassed >= 29) {
       localStorage.clear();
       return redirect('/signin');
     }

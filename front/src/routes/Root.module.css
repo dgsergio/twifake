@@ -1,12 +1,30 @@
 .root {
   display: flex;
-  margin: 0 16rem;
+  margin: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .root {
+    margin: 0 2.5rem;
+  }
+}
+
+@media (min-width: 800px) {
+  .root {
+    margin: 0 16rem;
+  }
 }
 
 .main {
-  margin-left: 22.7rem;
-  min-width: 57rem;
+  margin-left: 6rem;
+  width: 51rem;
   min-height: 100vh;
   border-left: 0.1rem solid rgba(255, 255, 255, 0.16);
   border-right: 0.1rem solid rgba(255, 255, 255, 0.16);
+}
+
+@media (min-width: 1300px) {
+  .main {
+    margin-left: 22.7rem;
+  }
 }

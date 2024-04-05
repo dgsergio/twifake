@@ -23,7 +23,7 @@ function UserMenu({ user }: { user: User }) {
         className={classes['user-btn']}
         onClick={showUserCardHandler}
       >
-        <UserDetail user={user} />
+        <UserDetail user={user} className={classes.detail} />
         <div className={classes['user-option']}>
           <FontAwesomeIcon icon={faEllipsis} />
         </div>
